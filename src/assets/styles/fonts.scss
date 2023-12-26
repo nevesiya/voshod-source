@@ -1,0 +1,25 @@
+$font-path: '/src/assets/fonts/';
+
+@mixin font-face($family, $weight, $filename) {
+    @font-face {
+        font-family: #{$family};
+        src:
+            url('#{$font-path}#{$filename}.woff2') format('woff2'),
+            url('#{$font-path}#{$filename}.woff') format('woff'),
+            url('#{$font-path}#{$filename}.ttf') format('truetype');
+        font-weight: #{$weight};
+        font-display: swap;
+        unicode-range: U+21-5F, U+61-7E, U+AB, U+BB, U+401, U+410-44F, U+451, U+2013, U+2014, U+2018,
+            U+2019, U+201C-201E, U+2026, U+20BD;
+    }
+}
+
+@include font-face('Inter', 700, 'Inter-Bold');
+@include font-face('Inter', 300, 'Inter-Light');
+@include font-face('Inter', 500, 'Inter-Medium');
+@include font-face('Inter', 400, 'Inter-Regular');
+@include font-face('Inter', 600, 'Inter-SemiBold');
+
+@include font-face('Lato', 700, 'Lato-Bold');
+@include font-face('Lato', 500, 'Lato-Medium');
+@include font-face('Lato', 600, 'Lato-Semibold');

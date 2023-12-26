@@ -1,0 +1,13 @@
+<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Check Circle" clip-path="url(#clip0_3101_63512)">
+<g id="Fill">
+<path id="Vector (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M0.917969 11C0.917969 5.43109 5.43243 0.916626 11.0013 0.916626C16.5702 0.916626 21.0846 5.43109 21.0846 11C21.0846 16.5688 16.5702 21.0833 11.0013 21.0833C5.43243 21.0833 0.917969 16.5688 0.917969 11Z" fill="#222222"/>
+<path id="Vector" d="M7.65234 11.2172L9.95397 13.3911L14.348 8.60852" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_3101_63512">
+<rect width="22" height="22" fill="white"/>
+</clipPath>
+</defs>
+</svg>

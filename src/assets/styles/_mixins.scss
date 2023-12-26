@@ -1,0 +1,16 @@
+@mixin flex-between() {
+    display: flex;
+    justify-content: space-between;
+}
+
+@mixin font($weight: inherit, $size: inherit, $line: inherit) {
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $line;
+}
+
+@mixin line($width, $height, $backround: $red-dark) {
+    width: $width;
+    height: $height;
+    background: $backround;
+}
