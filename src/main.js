@@ -21,9 +21,13 @@ app.component('TheLoader', TheLoader)
 app.component('TheLoaderLocal', TheLoaderLocal)
 app.component('LazyLoadContainer', LazyLoadContainer)
 
+const KEY = import.meta.env.DEV
+    ? 'AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg'
+    : 'AIzaSyDYtpTq5yxnSbzzNNIXs401pBDnsNjOpqU'
+
 app.use(VueGoogleMaps, {
     load: {
-        key: 'AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg'
+        key: KEY
     }
 })
     .use(IMaskComponent)
