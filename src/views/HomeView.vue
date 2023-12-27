@@ -161,9 +161,8 @@ import BaseRange from '@/components/UI/Input/BaseRange.vue'
 import CardLeasing from '@/components/UI/Card/CardLeasing.vue'
 import CardSkeleton from '@/components/UI/Skeleton/CardSkeleton.vue'
 
-import LeasingCarLocal from '@/data/leasing_car.json'
 import helpers from '@/helpers/global'
-import axios from 'axios'
+import { fetchData } from '@/utils/apiUtils'
 import { useFilterDataStore } from '@/stores/FilterDataStore'
 
 export default {
@@ -224,14 +223,15 @@ export default {
 
         async getLeasingCars() {
             this.loading = true
-            try {
-                const response = await axios.get(
-                    'https://my.api.mockaroo.com/leasing_cars.json?key=a84cf050*'
-                )
-                this.leasingCar = response.data
-            } catch (e) {
-                this.leasingCar = LeasingCarLocal
-            }
+
+            const path = import.meta.env.DEV
+                ? `public/data/leasing_car.json`
+                : `data/leasing_car.json`
+
+            this.leasingCar = await fetchData(
+                'https://my.api.mockaroo.com/leasing_cars.json?key=a84cf050*',
+                `${import.meta.env.BASE_URL}${path}`
+            )
 
             this.getCarProduct()
             this.loading = false

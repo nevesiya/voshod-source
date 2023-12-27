@@ -236,9 +236,11 @@ export default {
         async getRentCars() {
             this.loading = true
 
+            const path = import.meta.env.DEV ? `public/data/rent_car.json` : `data/rent_car.json`
+
             this.rentCar = await fetchData(
                 'https://my.api.mockaroo.com/rent_cars.json?key=a84cf050*',
-                `${import.meta.env.BASE_URL}src/data/rent_car.json`
+                `${import.meta.env.BASE_URL}${path}`
             )
 
             if (typeof this.rentCar === 'object') {

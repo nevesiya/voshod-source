@@ -80,7 +80,7 @@
 import BaseFooter from '@/components/BaseFooter.vue'
 import BaseQuestion from '@/components/BaseQuestion.vue'
 
-import axios from 'axios'
+import { fetchData } from '@/utils/apiUtils'
 
 export default {
     components: {
@@ -97,24 +97,16 @@ export default {
     },
     methods: {
         async getFaqLaasing() {
-            try {
-                const response = await axios.get(
-                    `${import.meta.env.BASE_URL}src/data/leasing_faq.json`
-                )
-                this.questionsLeasing = response.data
-            } catch (error) {
-                console.error(error)
-            }
+            const path = import.meta.env.DEV
+                ? `public/data/leasing_faq.json`
+                : `data/leasing_faq.json`
+
+            this.questionsLeasing = await fetchData(`${import.meta.env.BASE_URL}${path}`)
         },
         async getFaqRent() {
-            try {
-                const response = await axios.get(
-                    `${import.meta.env.BASE_URL}src/data/rent_faq.json`
-                )
-                this.questionsRent = response.data
-            } catch (error) {
-                console.error(error)
-            }
+            const path = import.meta.env.DEV ? `public/data/rent_faq.json` : `data/rent_faq.json`
+
+            this.questionsRent = await fetchData(`${import.meta.env.BASE_URL}${path}`)
         }
     },
     mounted() {
