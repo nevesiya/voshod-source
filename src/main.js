@@ -12,6 +12,7 @@ import TheLoaderLocal from './components/UI/Loader/TheLoaderLocal.vue'
 import LazyLoadContainer from './components/LazyLoadContainer.vue'
 
 import '@/assets/styles/reset.css'
+import '@/assets/styles/theme.scss'
 
 const app = createApp(App)
 
