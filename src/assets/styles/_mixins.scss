@@ -14,3 +14,9 @@
     height: $height;
     background: $backround;
 }
+
+@mixin media-query($max-width) {
+    @media only screen and (width <= $max-width) {
+        @content;
+    }
+}
