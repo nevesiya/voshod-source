@@ -62,32 +62,41 @@
                     </GMapCluster>
                 </GMapMap>
             </lazy-load-container>
-            <BaseForm
-                @sucSendForm="showFormSuccsess = true"
-                v-if="!showFormSuccsess"
-                :showCheckbox="showCheckbox"
-                class="footer__form"
-                theme-button="button--color-red button--size-m"
-                name-button="Отправить"
+            <img
+                @click="showForm = !showForm"
+                :src="iconActionForm"
+                :class="{ 'footer__form-toggle--active': showForm }"
+                class="footer__form-toggle"
+                alt="icon dialog"
             />
-            <transition name="fade">
-                <template v-if="showFormSuccsess">
-                    <div class="footer__form">
-                        <div class="footer__form-body">
-                            <h6 class="footer__form-title">Спасибо за обращение</h6>
-                            <p class="footer__form-text">
-                                Наш специалист с вами свяжется. Пожалуйста, ожидайте.
-                            </p>
-                            <button
-                                @click="showFormSuccsess = false"
-                                class="footer__form-button button button--color-red button--size-m"
-                            >
-                                Вернуться
-                            </button>
+            <div class="footer__form-wrapper" :class="{ 'footer__form-wrapper--active': showForm }">
+                <BaseForm
+                    @sucSendForm="showFormSuccess = true"
+                    v-if="!showFormSuccess"
+                    :showCheckbox="showCheckbox"
+                    class="footer__form"
+                    theme-button="button--color-red button--size-m"
+                    name-button="Отправить"
+                />
+                <transition name="fade">
+                    <template v-if="showFormSuccess">
+                        <div class="footer__form">
+                            <div class="footer__form-body">
+                                <h6 class="footer__form-title">Спасибо за обращение</h6>
+                                <p class="footer__form-text">
+                                    Наш специалист с вами свяжется. Пожалуйста, ожидайте.
+                                </p>
+                                <button
+                                    @click="showFormSuccess = false"
+                                    class="footer__form-button button button--color-red button--size-m"
+                                >
+                                    Вернуться
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </template>
-            </transition>
+                    </template>
+                </transition>
+            </div>
         </div>
     </footer>
 </template>
@@ -95,6 +104,8 @@
 <script>
 import footerBackground from '@/assets/images/footer-background.jpg'
 import mapMark from '@/assets/images/icon-map-mark.png'
+import iconDialod from '@/assets/images/icon-dialog.svg'
+import iconCross from '@/assets/images/icon-cross.svg'
 
 import BaseForm from '@/components/UI/Form/BaseForm.vue'
 import BaseFooterSimple from '@/components/BaseFooterSimple.vue'
@@ -107,8 +118,8 @@ export default {
     props: {
         styleMap: {
             default: {
-                width: 1100 + 'px',
-                height: 1000 + 'px'
+                width: 100 + '%',
+                height: 100 + '%'
             }
         },
         showCheckbox: {
@@ -325,7 +336,8 @@ export default {
                     }
                 ]
             },
-            showFormSuccsess: false,
+            showFormSuccess: false,
+            showForm: false,
             google: null
         }
     },
@@ -341,20 +353,31 @@ export default {
                 // adjust zIndex to be above other markers
                 zIndex: Number(this.google.maps.Marker.MAX_ZINDEX) + count
             })
+    },
+    computed: {
+        iconActionForm() {
+            return this.showForm ? iconCross : iconDialod
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/theme.scss';
-
+.vue-map-container {
+    width: 100%;
+    height: 100%;
+}
 .footer {
     display: flex;
     justify-content: center;
     margin: 0 auto;
 
     &__wrapper {
-        padding-left: 260px;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-end;
+        flex-wrap: wrap;
+        padding: 160px 60px 20px 16px;
     }
 
     &__bg {
@@ -367,7 +390,7 @@ export default {
 
     &__contact {
         position: relative;
-        width: 820px;
+        flex: 0 0 40%;
 
         & * {
             color: $white;
@@ -382,7 +405,7 @@ export default {
         @include font(500, 60px, 73px);
         letter-spacing: 0.02em;
         text-transform: uppercase;
-        margin: 160px 0 80px;
+        margin-bottom: 80px;
 
         &::after {
             content: '';
@@ -421,9 +444,12 @@ export default {
 
         &:nth-child(5)::before {
             content: '';
-            background: url(@/assets/images/icon-phone.svg);
+            background: url(@/assets/images/icon-phone-white.svg);
             background-repeat: no-repeat;
         }
+    }
+
+    &__info {
     }
 
     &__info-list {
@@ -470,7 +496,32 @@ export default {
         position: relative;
         box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.1) inset;
         overflow-x: hidden;
+        flex: 0 0 60%;
+        & .lazy-load {
+            width: 100%;
+            height: 100%;
+        }
     }
+
+    &__form-toggle {
+        display: none;
+        padding: 13px;
+        background: #ff1f00;
+        border-radius: 8px;
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        transition: background 0.2s ease-in-out;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &__form-toggle--active {
+        padding: 14px;
+        background: $black;
+    }
+
     &__form {
         width: 580px;
         height: 394px;
@@ -479,9 +530,8 @@ export default {
         left: 40px;
         bottom: 40px;
         background: $white;
-        // display: flex;
-        // flex-wrap: wrap;
-        // gap: 15px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
     }
 
     &__form-body {
@@ -542,6 +592,221 @@ export default {
         &__text {
             width: 100%;
             height: 130px;
+        }
+    }
+}
+
+@include media-query($xxl) {
+    // .footer {
+    //     flex-wrap: wrap;
+    //     &__contact {
+    //         flex-basis: 100%;
+    //     }
+    //     &__map {
+    //         flex-basis: 100%;
+    //     }
+    // }
+}
+
+@include media-query($xxl) {
+    .footer {
+        &__contact {
+            flex-basis: 50%;
+        }
+        &__map {
+            flex-basis: 50%;
+        }
+        &__wrapper {
+            padding: 100px 16px 20px;
+            align-content: center;
+        }
+        &__form {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 20px;
+        }
+    }
+}
+
+@include media-query($xl) {
+    .footer {
+        flex-wrap: wrap;
+        &__contact {
+            flex-basis: 100%;
+        }
+        &__map {
+            flex-basis: 100%;
+            & .lazy-load {
+                height: 800px;
+            }
+        }
+
+        &__form {
+            left: 40px;
+            bottom: 40px;
+            transform: translateX(0%);
+        }
+    }
+}
+
+@include media-query($md) {
+    .footer {
+        &__wrapper {
+        }
+        &__title {
+            font-size: 36px;
+            line-height: normal;
+            margin-bottom: 60px;
+            &::after {
+                margin-top: 30px;
+                width: 400px;
+            }
+        }
+        &__info-title {
+            font-size: 20px;
+        }
+        &__info-item,
+        &__info-tel {
+            font-size: 14px;
+        }
+        &__info-box {
+            margin-bottom: 60px;
+        }
+        &__info-social {
+            margin-bottom: 114px;
+        }
+        &__form {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 76px;
+            width: 465px;
+            height: 350px;
+            padding: 25px 25px;
+        }
+        &__form-toggle {
+            display: block;
+        }
+        &__form-wrapper {
+            position: relative;
+            opacity: 0;
+            z-index: -99;
+            transition: all 0.25s ease-in-out;
+        }
+        &__form-wrapper--active {
+            opacity: 1;
+            z-index: 99;
+        }
+    }
+
+    ::v-deep {
+        .form {
+            &__box {
+                width: 200px;
+            }
+            &__text {
+                height: 101px;
+                align-self: auto;
+            }
+            &__submit {
+                align-self: auto;
+            }
+        }
+    }
+
+    ::v-deep {
+        .footer-simple {
+            gap: 20px;
+            flex-wrap: wrap;
+            & * {
+                flex: 1 0 auto;
+            }
+            &__copyright {
+                margin-right: 0px;
+            }
+            &__offer {
+                margin-right: 0px;
+            }
+        }
+    }
+}
+
+@include media-query($xs) {
+    .footer {
+        &__wrapper {
+            padding-top: 50px;
+            align-content: flex-start;
+        }
+        &__title {
+            @include font(600, 24px);
+            margin-bottom: 40px;
+            width: 100%;
+            &::after {
+                width: 100%;
+                height: 3px;
+                margin-top: 10px;
+            }
+        }
+        &__info-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+            @for $i from 1 through 5 {
+                &:nth-child(#{$i})::before {
+                    transform: scale(0.7);
+                    margin-right: 10px;
+                }
+            }
+        }
+        &__info-list {
+            margin: 0 0 32px 35px;
+        }
+        &__info-item {
+            margin-bottom: 8px;
+        }
+        &__info-social {
+            gap: 0px;
+            margin-bottom: 60px;
+        }
+        &__social-link {
+            transform: scale(0.6);
+        }
+    }
+
+    ::v-deep {
+        .footer-simple {
+            &__offer {
+                display: none;
+            }
+            &__privacy-police {
+                display: none;
+            }
+            &__copyright {
+                font-size: 10px;
+            }
+        }
+    }
+
+    ::v-deep {
+        .form {
+            width: 335px;
+            height: 290px;
+            padding: 16px;
+            &__box {
+                width: 144px;
+                height: 33px;
+
+                & input,
+                input::placeholder {
+                    font-size: 12px;
+                }
+            }
+            & textarea,
+            textarea::placeholder {
+                font-size: 12px;
+            }
+            &__error-text {
+                font-size: 9px;
+                top: 35px;
+            }
         }
     }
 }
