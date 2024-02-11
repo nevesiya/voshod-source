@@ -82,10 +82,13 @@
                     <template v-if="showFormSuccess">
                         <div class="footer__form">
                             <div class="footer__form-body">
-                                <h6 class="footer__form-title">Спасибо за обращение</h6>
-                                <p class="footer__form-text">
-                                    Наш специалист с вами свяжется. Пожалуйста, ожидайте.
-                                </p>
+                                <div class="footer__body-wrapper">
+                                    <h6 class="footer__form-title">Спасибо за обращение</h6>
+                                    <p class="footer__form-text">
+                                        Наш специалист с вами свяжется.<br />
+                                        Пожалуйста, ожидайте.
+                                    </p>
+                                </div>
                                 <button
                                     @click="showFormSuccess = false"
                                     class="footer__form-button button button--color-red button--size-m"
@@ -102,24 +105,24 @@
 </template>
 
 <script>
-import footerBackground from '@/assets/images/footer-background.jpg'
-import mapMark from '@/assets/images/icon-map-mark.png'
-import iconDialod from '@/assets/images/icon-dialog.svg'
-import iconCross from '@/assets/images/icon-cross.svg'
+import footerBackground from "@/assets/images/footer-background.jpg"
+import mapMark from "@/assets/images/icon-map-mark.png"
+import iconDialod from "@/assets/images/icon-dialog.svg"
+import iconCross from "@/assets/images/icon-cross.svg"
 
-import BaseForm from '@/components/UI/Form/BaseForm.vue'
-import BaseFooterSimple from '@/components/BaseFooterSimple.vue'
+import BaseForm from "@/components/UI/Form/BaseForm.vue"
+import BaseFooterSimple from "@/components/BaseFooterSimple.vue"
 
-import { GridAlgorithm } from '@googlemaps/markerclusterer'
+import { GridAlgorithm } from "@googlemaps/markerclusterer"
 
 export default {
-    name: 'TheFooter',
+    name: "TheFooter",
     components: { BaseFooterSimple, BaseForm },
     props: {
         styleMap: {
             default: {
-                width: 100 + '%',
-                height: 100 + '%'
+                width: 100 + "%",
+                height: 100 + "%"
             }
         },
         showCheckbox: {
@@ -134,15 +137,15 @@ export default {
             algorithm: new GridAlgorithm({}),
             footerInfo: {
                 address: {
-                    title: 'адрес',
-                    text: ['Санкт - Петербург', 'ул. Сочинская', 'д. 2А']
+                    title: "адрес",
+                    text: ["Санкт - Петербург", "ул. Сочинская", "д. 2А"]
                 },
                 workTime: {
-                    title: 'время работы',
-                    text: ['пн-сб с 9.00 – 21.00', 'вс - выходной']
+                    title: "время работы",
+                    text: ["пн-сб с 9.00 – 21.00", "вс - выходной"]
                 },
                 phone: {
-                    title: 'телефон',
+                    title: "телефон",
                     text: [`+7 (812) 317-68-15`]
                 }
             },
@@ -161,11 +164,11 @@ export default {
             options: {
                 styles: [
                     {
-                        featureType: 'water',
-                        elementType: 'geometry',
+                        featureType: "water",
+                        elementType: "geometry",
                         stylers: [
                             {
-                                color: '#e9e9e9'
+                                color: "#e9e9e9"
                             },
                             {
                                 lightness: 17
@@ -173,11 +176,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'landscape',
-                        elementType: 'geometry',
+                        featureType: "landscape",
+                        elementType: "geometry",
                         stylers: [
                             {
-                                color: '#f5f5f5'
+                                color: "#f5f5f5"
                             },
                             {
                                 lightness: 20
@@ -185,11 +188,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'road.highway',
-                        elementType: 'geometry.fill',
+                        featureType: "road.highway",
+                        elementType: "geometry.fill",
                         stylers: [
                             {
-                                color: '#ffffff'
+                                color: "#ffffff"
                             },
                             {
                                 lightness: 17
@@ -197,11 +200,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'road.highway',
-                        elementType: 'geometry.stroke',
+                        featureType: "road.highway",
+                        elementType: "geometry.stroke",
                         stylers: [
                             {
-                                color: '#ffffff'
+                                color: "#ffffff"
                             },
                             {
                                 lightness: 29
@@ -212,11 +215,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'road.arterial',
-                        elementType: 'geometry',
+                        featureType: "road.arterial",
+                        elementType: "geometry",
                         stylers: [
                             {
-                                color: '#ffffff'
+                                color: "#ffffff"
                             },
                             {
                                 lightness: 18
@@ -224,11 +227,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'road.local',
-                        elementType: 'geometry',
+                        featureType: "road.local",
+                        elementType: "geometry",
                         stylers: [
                             {
-                                color: '#ffffff'
+                                color: "#ffffff"
                             },
                             {
                                 lightness: 16
@@ -236,11 +239,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'poi',
-                        elementType: 'geometry',
+                        featureType: "poi",
+                        elementType: "geometry",
                         stylers: [
                             {
-                                color: '#f5f5f5'
+                                color: "#f5f5f5"
                             },
                             {
                                 lightness: 21
@@ -248,11 +251,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'poi.park',
-                        elementType: 'geometry',
+                        featureType: "poi.park",
+                        elementType: "geometry",
                         stylers: [
                             {
-                                color: '#dedede'
+                                color: "#dedede"
                             },
                             {
                                 lightness: 21
@@ -260,13 +263,13 @@ export default {
                         ]
                     },
                     {
-                        elementType: 'labels.text.stroke',
+                        elementType: "labels.text.stroke",
                         stylers: [
                             {
-                                visibility: 'on'
+                                visibility: "on"
                             },
                             {
-                                color: '#ffffff'
+                                color: "#ffffff"
                             },
                             {
                                 lightness: 16
@@ -274,13 +277,13 @@ export default {
                         ]
                     },
                     {
-                        elementType: 'labels.text.fill',
+                        elementType: "labels.text.fill",
                         stylers: [
                             {
                                 saturation: 36
                             },
                             {
-                                color: '#333333'
+                                color: "#333333"
                             },
                             {
                                 lightness: 40
@@ -288,19 +291,19 @@ export default {
                         ]
                     },
                     {
-                        elementType: 'labels.icon',
+                        elementType: "labels.icon",
                         stylers: [
                             {
-                                visibility: 'off'
+                                visibility: "off"
                             }
                         ]
                     },
                     {
-                        featureType: 'transit',
-                        elementType: 'geometry',
+                        featureType: "transit",
+                        elementType: "geometry",
                         stylers: [
                             {
-                                color: '#f2f2f2'
+                                color: "#f2f2f2"
                             },
                             {
                                 lightness: 19
@@ -308,11 +311,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'administrative',
-                        elementType: 'geometry.fill',
+                        featureType: "administrative",
+                        elementType: "geometry.fill",
                         stylers: [
                             {
-                                color: '#fefefe'
+                                color: "#fefefe"
                             },
                             {
                                 lightness: 20
@@ -320,11 +323,11 @@ export default {
                         ]
                     },
                     {
-                        featureType: 'administrative',
-                        elementType: 'geometry.stroke',
+                        featureType: "administrative",
+                        elementType: "geometry.stroke",
                         stylers: [
                             {
-                                color: '#fefefe'
+                                color: "#fefefe"
                             },
                             {
                                 lightness: 17
@@ -346,8 +349,8 @@ export default {
             new this.google.maps.Marker({
                 label: {
                     text: String(count),
-                    color: 'white',
-                    fontSize: '10px'
+                    color: "white",
+                    fontSize: "10px"
                 },
                 position,
                 // adjust zIndex to be above other markers
@@ -408,7 +411,7 @@ export default {
         margin-bottom: 80px;
 
         &::after {
-            content: '';
+            content: "";
             display: block;
             margin-top: 15px;
             @include line(500px, 6px);
@@ -431,19 +434,19 @@ export default {
         }
 
         &:nth-child(1)::before {
-            content: '';
+            content: "";
             background: url(@/assets/images/icon-mark.svg);
             background-repeat: no-repeat;
         }
 
         &:nth-child(3)::before {
-            content: '';
+            content: "";
             background: url(@/assets/images/icon-clock.svg);
             background-repeat: no-repeat;
         }
 
         &:nth-child(5)::before {
-            content: '';
+            content: "";
             background: url(@/assets/images/icon-phone-white.svg);
             background-repeat: no-repeat;
         }
@@ -535,25 +538,29 @@ export default {
     }
 
     &__form-body {
-        margin-top: 100px;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding-top: 50px;
+    }
+
+    &__form-wrapper {
     }
     &__form-title {
         @include font(600, 30px, 140%);
         letter-spacing: 0.01em;
         text-transform: uppercase;
         color: $black;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
     &__form-text {
         @include font(500, 16px, 19px);
         letter-spacing: 0.01em;
         text-transform: uppercase;
         color: $gray-dark;
-        margin-bottom: 50px;
         &::after {
-            content: '';
+            content: "";
             @include line(60px, 6px, $red-dark);
             display: block;
             margin-top: 15px;
@@ -642,9 +649,23 @@ export default {
         }
 
         &__form {
-            left: 40px;
-            bottom: 40px;
-            transform: translateX(0%);
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 76px;
+        }
+
+        &__form-toggle {
+            display: block;
+        }
+        &__form-wrapper {
+            position: relative;
+            opacity: 0;
+            z-index: -99;
+            transition: all 0.25s ease-in-out;
+        }
+        &__form-wrapper--active {
+            opacity: 1;
+            z-index: 99;
         }
     }
 }
@@ -676,25 +697,18 @@ export default {
             margin-bottom: 114px;
         }
         &__form {
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 76px;
             width: 465px;
             height: 350px;
             padding: 25px 25px;
         }
-        &__form-toggle {
-            display: block;
+        &__form-title {
+            font-size: 26px;
         }
-        &__form-wrapper {
-            position: relative;
-            opacity: 0;
-            z-index: -99;
-            transition: all 0.25s ease-in-out;
+        &__form-text {
+            font-size: 14px;
         }
-        &__form-wrapper--active {
-            opacity: 1;
-            z-index: 99;
+        &__form-button {
+            align-self: auto;
         }
     }
 
@@ -769,6 +783,25 @@ export default {
         &__social-link {
             transform: scale(0.6);
         }
+        &__form {
+            width: 335px;
+            height: 290px;
+            padding: 16px;
+        }
+        &__form-body {
+            padding-top: 20px;
+        }
+        &__form-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        &__form-text {
+            font-size: 12px;
+            &::after {
+                height: 4px;
+                margin-top: 10px;
+            }
+        }
     }
 
     ::v-deep {
@@ -787,13 +820,9 @@ export default {
 
     ::v-deep {
         .form {
-            width: 335px;
-            height: 290px;
-            padding: 16px;
             &__box {
                 width: 144px;
                 height: 33px;
-
                 & input,
                 input::placeholder {
                     font-size: 12px;
