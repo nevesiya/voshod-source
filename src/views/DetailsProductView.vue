@@ -426,9 +426,13 @@ export default {
         async getLeasingCars() {
             this.loading = true
 
+            const path = import.meta.env.DEV
+                ? `public/data/leasing_car.json`
+                : `data/leasing_car.json`
+
             this.leasingCar = await fetchData(
                 'https://my.api.mockaroo.com/leasing_cars.json?key=a84cf050*',
-                `${import.meta.env.BASE_URL}src/data/leasing_car.json`
+                `${import.meta.env.BASE_URL}${path}`
             )
 
             if (typeof this.leasingCar === 'object') {
@@ -454,18 +458,16 @@ export default {
     },
     created() {
         this.getLeasingCars()
-        setTimeout(() => {
-            this.$refs.magnifying.ondragstart = function () {
-                return false
-            }
-        }, 1000)
+        // setTimeout(() => {
+        //     this.$refs.magnifying.ondragstart = function () {
+        //         return false
+        //     }
+        // }, 1000)
     }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .main {
     padding: 20px 0;
     display: grid;
