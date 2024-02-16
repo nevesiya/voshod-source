@@ -2,7 +2,10 @@
     <main class="main">
         <div class="wrapper">
             <div class="main-question">
-                <h1 class="main-question__title title-primary">Часто задаваемые вопросы</h1>
+                <h1 class="main-question__title title-primary">
+                    <span class="main-question__title-minor">Часто задаваемые </span>
+                    <span class="main-question__title-main">вопросы</span>
+                </h1>
                 <p class="main-question__text">
                     Список ответов на часто задаваемые вопросы от наших клиентов постоянно
                     пополняется.
@@ -77,10 +80,10 @@
 </template>
 
 <script>
-import BaseFooter from '@/components/BaseFooter.vue'
-import BaseQuestion from '@/components/BaseQuestion.vue'
+import BaseFooter from "@/components/BaseFooter.vue"
+import BaseQuestion from "@/components/BaseQuestion.vue"
 
-import { fetchData } from '@/utils/apiUtils'
+import { fetchData } from "@/utils/apiUtils"
 
 export default {
     components: {
@@ -89,8 +92,8 @@ export default {
     },
     data() {
         return {
-            questionsLeasing: '',
-            questionsRent: '',
+            questionsLeasing: "",
+            questionsRent: "",
             showLeasing: true,
             showRent: false
         }
@@ -117,8 +120,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/theme.scss';
-
 .accordion {
 }
 .main {
@@ -152,12 +153,13 @@ export default {
     }
     &__wrapper {
         position: relative;
+        margin-bottom: 100px;
     }
 }
 .question-contact {
     position: relative;
     &::before {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         @include line(6px, 100%, #bf3535);
@@ -166,49 +168,45 @@ export default {
         @include font(500, 16px, 140%);
         letter-spacing: 0.32px;
     }
+    & *:not(a) {
+        margin-left: 30px;
+    }
     &__info {
         color: $red-dark;
-        margin-left: 30px;
     }
     &__open-hour {
         margin-bottom: 10px;
-        margin-left: 30px;
     }
     &__tel {
         margin-bottom: 10px;
-        margin-left: 30px;
     }
     &__title {
         @include font(600, 24px, 140%);
         letter-spacing: 0.48px;
         text-transform: uppercase;
         margin-bottom: 20px;
-        margin-left: 30px;
     }
 }
 
 .question-leasing {
     display: flex;
-    row-gap: 35px;
-    column-gap: 84px;
-    margin-bottom: 100px;
+    justify-content: space-between;
+    column-gap: 50px;
     &__accordion {
         display: flex;
         flex-direction: column;
-        row-gap: 35px;
+        row-gap: 25px;
     }
 }
 
 .question-rent {
     display: flex;
-    flex-wrap: wrap;
-    row-gap: 35px;
-    column-gap: 84px;
-    margin-bottom: 100px;
+    justify-content: space-between;
+    column-gap: 50px;
     &__accordion {
         display: flex;
         flex-direction: column;
-        row-gap: 35px;
+        row-gap: 25px;
     }
 }
 
@@ -223,7 +221,7 @@ export default {
         opacity: 0.7;
     }
     &::after {
-        content: '';
+        content: "";
         display: block;
         @include line(100%, 2px, $gray-light);
         border-radius: 5px;
@@ -234,7 +232,7 @@ export default {
 
 .question-title--active {
     &::after {
-        content: '';
+        content: "";
         display: block;
         @include line(100%, 2px, #bf3535);
         border-radius: 5px;
@@ -242,24 +240,95 @@ export default {
     }
 }
 
-// .question-box--active {
-//     opacity: 1;
-//     visibility: visible;
-//     transition: all 0.2s ease-in-out;
-// }
-
-// .question-box--inactive {
-//     position: absolute;
-//     opacity: 0;
-//     visibility: hidden;
-//     transition: all 0.2s ease-in-out;
-// }
-
-.title-primary {
+.title-primary,
+.title-primary * {
     @include font(600, 50px);
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
-.wrapper {
+
+@include media-query($md) {
+    .main-question {
+        &__wrapper {
+            flex-wrap: wrap;
+            row-gap: 35px;
+        }
+    }
+
+    ::v-deep {
+        .accordion-item {
+            max-width: 100%;
+        }
+    }
+}
+
+@include media-query($sm) {
+    .main-question {
+        &__title-minor {
+            display: none;
+        }
+    }
+    .question-title {
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+
+    .title-primary,
+    .title-primary * {
+        @include font(500, 40px);
+    }
+}
+
+@include media-query($xs) {
+    .main-question {
+        padding: 24px 0 40px;
+        &__title {
+            margin-bottom: 16px;
+        }
+        &__text {
+            @include font(500, 12px);
+        }
+        &__wrapper {
+            row-gap: 24px;
+            margin-bottom: 48px;
+        }
+    }
+    .question-leasing {
+        &__accordion {
+            row-gap: 14px;
+        }
+    }
+    .question-contact {
+        &::before {
+            @include line(4px, 100%, #bf3535);
+        }
+        & * {
+            font-size: 12px;
+        }
+        & *:not(a) {
+            margin-left: 16px;
+        }
+        &__title {
+            @include font(600, 14px);
+            margin-bottom: 12px;
+        }
+        &__info {
+        }
+        &__open-hour {
+            margin-bottom: 8px;
+        }
+        &__tel {
+            margin-bottom: 8px;
+        }
+    }
+
+    .title-primary,
+    .title-primary * {
+        font-size: 32px;
+    }
+
+    .question-title {
+        @include font(600, 16px);
+    }
 }
 </style>
