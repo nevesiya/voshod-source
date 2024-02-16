@@ -1,15 +1,8 @@
 <template>
     <footer class="footer-simple">
-        <p class="footer-simple__copyright">ООО Восход ⓒ 2023 год</p>
-        <a
-            @click.prevent=""
-            href="#"
-            class="footer-simple__offer"
-            >Оферта</a
-        >
-        <router-link
-            to="/privacy-police"
-            class="footer-simple__privacy-police"
+        <p class="footer-simple__copyright">ООО Восход ⓒ {{ currentYaer }} год</p>
+        <a @click.prevent="" href="#" class="footer-simple__offer">Оферта</a>
+        <router-link to="/privacy-police" class="footer-simple__privacy-police"
             >Политика конфиденциальности
         </router-link>
     </footer>
@@ -18,12 +11,15 @@
 <script>
 export default {
     name: 'BaseFooterSimple',
-};
+    computed: {
+        currentYaer() {
+            return new Date().getFullYear()
+        }
+    }
+}
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/theme.scss';
-
 .footer-simple {
     @include flex-between();
     & * {
