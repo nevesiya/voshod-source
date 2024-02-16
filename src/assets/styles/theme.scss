@@ -1,5 +1,5 @@
 /* import */
-@import '@/assets/styles/fonts.scss';
+@import "@/assets/styles/fonts.scss";
 
 /* tag */
 * {
@@ -141,13 +141,13 @@ a:hover {
     gap: 10px;
 
     &::after {
-        content: url('@/assets/images/arrow-right-black.svg');
+        content: url("@/assets/images/arrow-right-black.svg");
         width: 18px;
         height: 18px;
     }
 
     &:hover::after {
-        content: url('@/assets/images/arrow-right-white.svg');
+        content: url("@/assets/images/arrow-right-white.svg");
         animation: arrow-right;
         animation-duration: 1.2s;
         animation-iteration-count: infinite;
@@ -241,4 +241,54 @@ a:hover {
 
 .collapse-enter-to {
     opacity: 1;
+}
+
+@media (hover: none) {
+    a:hover {
+        opacity: 1;
+    }
+
+    .button--color-red,
+    .button--color-black {
+        &:hover {
+            color: inherit;
+            background: inherit;
+        }
+
+        &:hover * {
+            color: inherit;
+            background: inherit;
+        }
+    }
+
+    .button--color-white {
+        &:hover {
+            color: $white;
+            background: inherit;
+        }
+
+        &:hover * {
+            color: $white;
+            background: inherit;
+        }
+    }
+}
+
+@include media-query($xxl) {
+    .wrapper {
+        padding: 0 16px;
+    }
+}
+
+@include media-query($xs) {
+    .button--size-m,
+    .button--size-s {
+        font-size: 12px;
+        padding: 10px 23px;
+    }
+
+    .button--size-xs {
+        font-size: 12px;
+        padding: 10px 23px;
+    }
 }
