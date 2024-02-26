@@ -1,8 +1,13 @@
 {
     "$schema": "https://json.schemastore.org/prettierrc",
-    "semi": false,
+    "semi": true,
+    "trailingComma": "all",
     "tabWidth": 4,
     "singleQuote": true,
-    "printWidth": 100,
-    "trailingComma": "none"
+    "prettier.quoteProps": "consistent",
+    "prettier.singleAttributePerLine": true,
+    "endOfLine": "auto",
+    "vueIndentScriptAndStyle": false,
+    "htmlWhitespaceSensitivity": "ignore",
+    "prettier.htmlWrapAttributes": "force-aligned"
 }
