@@ -255,6 +255,12 @@ export default {
         }
     }
 
+    .question-leasing {
+        &__accordion {
+            width: 100%;
+        }
+    }
+
     ::v-deep {
         .accordion-item {
             max-width: 100%;
