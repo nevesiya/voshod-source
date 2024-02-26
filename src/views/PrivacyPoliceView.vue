@@ -1,6 +1,6 @@
 <template>
     <div class="privacy-police">
-        <img src="@/assets/images/logo-nav-white.svg" alt="logo" class="privacy-police__logo" />
+        <img src="@/assets/images/logo-white.svg" alt="logo" class="privacy-police__logo" />
         <div class="privacy-police__body">
             <h5 class="privacy-police__title">Политика конфиденциальности</h5>
             <div class="privacy-police__body-paragraph">
@@ -177,22 +177,20 @@ export default {
         BaseFooterSimple
     },
     mounted() {
-        let elem = document.querySelector('.scroll-up')
+        let btnTop = document.querySelector('.scroll-top')
         const styles = `
         margin-right: 400px;
         `
-        elem.style.cssText = styles
+        btnTop.style.cssText = styles
     },
     unmounted() {
-        let elem = document.querySelector('.scroll-up')
-        elem.style.cssText = ''
+        let btnTop = document.querySelector('.scroll-top')
+        btnTop.style.cssText = ''
     }
 }
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/theme.scss';
-
 .privacy-police {
     display: flex;
     flex-direction: column;

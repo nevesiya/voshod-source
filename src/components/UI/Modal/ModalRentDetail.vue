@@ -2,10 +2,17 @@
     <div class="modal-bg modal-bg--theme-blur">
         <div class="modal">
             <div class="gallery">
-                <button @click="this.$emit('closeModal')" class="gallery__btn-back button">
+                <button
+                    @click="this.$emit('closeModal')"
+                    class="gallery__btn-back button"
+                >
                     назад
                 </button>
-                <img :src="productImages[indexActiveImage]" alt="photo car" class="gallery__img" />
+                <img
+                    :src="productImages[indexActiveImage]"
+                    alt="photo car"
+                    class="gallery__img"
+                />
                 <div class="gallery__magnifying">
                     <img
                         @click="showModalSlider = true"
@@ -26,35 +33,46 @@
                         class="gallery__modal-slider"
                         :images="productImages"
                         :primary-image="indexActiveImage"
-                        @close-modal="(showModalSlider = false), (indexActiveImage = $event)"
+                        @close-modal="
+                            (showModalSlider = false),
+                                (indexActiveImage = $event)
+                        "
                     />
                 </transition>
             </div>
             <div class="modal-info">
                 <p class="modal-info__name">
                     <span class="modal-info__brand">{{ product.brand }}</span>
-                    <span class="modal-info__model"> {{ modelName }}</span>
+                    <span class="modal-info__model">{{ modelName }}</span>
                 </p>
                 <p class="modal-info__plate-number">
                     {{ product.registration }}
                 </p>
                 <div class="modal-info__label-box">
-                    <span href="#" class="modal-info__label" :class="getClass(product.status)">
+                    <span
+                        href="#"
+                        class="modal-info__label"
+                        :class="getClass(product.status)"
+                    >
                         {{ product.status }}
                     </span>
-                    <span href="#" class="modal-info__label modal-info__label--service">
+                    <span
+                        href="#"
+                        class="modal-info__label modal-info__label--service"
+                    >
                         {{ product.service }}
                     </span>
                 </div>
                 <p class="modal-info__payment">
-                    <span class="modal-info__payment-rent"
-                        >{{ product.payment.toLocaleString() }} ₽ <span> / день</span></span
-                    >
+                    <span class="modal-info__payment-rent">
+                        {{ product.payment.toLocaleString() }} ₽
+                        <span>/ день</span>
+                    </span>
                 </p>
                 <p class="modal-info__price">
                     Депозит от
-                    <span class="modal-info__price-rent"
-                        >{{ product.price.toLocaleString() }} ₽
+                    <span class="modal-info__price-rent">
+                        {{ product.price.toLocaleString() }} ₽
                     </span>
                 </p>
                 <button
@@ -87,7 +105,9 @@
                         </tr>
                         <tr class="details-list__item">
                             <td class="details-list__term">Пробег</td>
-                            <td class="details-list__discr">{{ product.mileage }} км</td>
+                            <td class="details-list__discr">
+                                {{ product.mileage }} км
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -97,18 +117,18 @@
 </template>
 
 <script>
-import photo1 from '@/assets/images/car-photo-1.jpg'
-import photo2 from '@/assets/images/car-photo-2.jpg'
-import photo3 from '@/assets/images/car-photo-3.jpg'
-import photo4 from '@/assets/images/car-photo-4.jpg'
-import photo5 from '@/assets/images/car-photo-5.jpg'
+import photo1 from '@/assets/images/car-photo-1.jpg';
+import photo2 from '@/assets/images/car-photo-2.jpg';
+import photo3 from '@/assets/images/car-photo-3.jpg';
+import photo4 from '@/assets/images/car-photo-4.jpg';
+import photo5 from '@/assets/images/car-photo-5.jpg';
 
-import ModalSlider from '@/components/UI/Modal/ModalSlider.vue'
-import ModalBooking from '@/components/UI/Modal/ModalBooking.vue'
-import BaseSlider from '@/components/UI/Slider/BaseSlider.vue'
+import ModalSlider from '@/components/UI/Modal/ModalSlider.vue';
+import ModalBooking from '@/components/UI/Modal/ModalBooking.vue';
+import BaseSlider from '@/components/UI/Slider/BaseSlider.vue';
 
-import CardMixin from '@/mixins/CardMixin'
-import ModalMixin from '@/mixins/ModalMixin'
+import CardMixin from '@/mixins/CardMixin';
+import ModalMixin from '@/mixins/ModalMixin';
 
 export default {
     name: 'ModalRentDetail',
@@ -116,22 +136,20 @@ export default {
     components: {
         ModalSlider,
         ModalBooking,
-        BaseSlider
+        BaseSlider,
     },
     data() {
         return {
             indexActiveImage: '',
             productImages: [photo1, photo2, photo3, photo4, photo5],
             showModalSlider: false,
-            showModalBooking: false
-        }
-    }
-}
+            showModalBooking: false,
+        };
+    },
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .modal-info {
 }
 .details {

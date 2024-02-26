@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import BaseSkeleton from '@/components/UI/Skeleton/BaseSkeleton.vue'
+import BaseSkeleton from '@/components/UI/Skeleton/BaseSkeleton.vue';
 
 export default {
     name: 'CardSkeleton',
     components: {
-        BaseSkeleton
-    }
-}
+        BaseSkeleton,
+    },
+};
 </script>
 
 <style lang="scss" scoped>

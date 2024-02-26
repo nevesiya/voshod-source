@@ -11,7 +11,7 @@
                 v-for="i in imagesNumber"
                 :key="i"
                 :class="{
-                    'slider-dots__item--active': i === indexActiveImage
+                    'slider-dots__item--active': i === indexActiveImage,
                 }"
                 @click="showSelectImage(i)"
                 class="slider-dots__item"
@@ -31,57 +31,55 @@ export default {
     name: 'BaseSlider',
     props: {
         imagesNumber: {
-            type: Number
+            type: Number,
         },
         primaryIndexImage: {
             type: Number,
-            default: 1
-        }
+            default: 1,
+        },
     },
     emits: ['currentIndexImage'],
     data() {
         return {
-            indexActiveImage: this.primaryIndexImage
-        }
+            indexActiveImage: this.primaryIndexImage,
+        };
     },
     watch: {
         primaryIndexImage() {
-            this.indexActiveImage = this.primaryIndexImage
-        }
+            this.indexActiveImage = this.primaryIndexImage;
+        },
     },
     methods: {
         showPrevImage() {
             if (this.indexActiveImage === 1) {
-                this.indexActiveImage = this.imagesNumber + 1
+                this.indexActiveImage = this.imagesNumber + 1;
             }
 
-            this.indexActiveImage--
-            this.$emit('currentIndexImage', this.indexActiveImage - 1)
+            this.indexActiveImage--;
+            this.$emit('currentIndexImage', this.indexActiveImage - 1);
         },
 
         showNextImage() {
             if (this.indexActiveImage === this.imagesNumber) {
-                this.indexActiveImage = 0
+                this.indexActiveImage = 0;
             }
 
-            this.indexActiveImage++
-            this.$emit('currentIndexImage', this.indexActiveImage - 1)
+            this.indexActiveImage++;
+            this.$emit('currentIndexImage', this.indexActiveImage - 1);
         },
 
         showSelectImage(i) {
-            this.indexActiveImage = i
-            this.$emit('currentIndexImage', this.indexActiveImage - 1)
-        }
+            this.indexActiveImage = i;
+            this.$emit('currentIndexImage', this.indexActiveImage - 1);
+        },
     },
     mounted() {
-        this.$emit('currentIndexImage', this.indexActiveImage - 1)
-    }
-}
+        this.$emit('currentIndexImage', this.indexActiveImage - 1);
+    },
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .slider {
     display: flex;
     width: 100%;

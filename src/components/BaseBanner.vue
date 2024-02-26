@@ -1,7 +1,11 @@
 <template>
     <div class="banner">
         <lazy-load-container>
-            <img class="banner__bg" v-lazy-img="bannerBackground" alt="banner background" />
+            <img
+                class="banner__bg"
+                v-lazy-img="bannerBackground"
+                alt="banner background"
+            />
         </lazy-load-container>
         <div class="banner__wrapper">
             <div class="banner__content">
@@ -9,7 +13,10 @@
                 <p class="banner__text">{{ text }}</p>
             </div>
             <div class="banner__box">
-                <button @click="clickButton" class="button button--size-xs button--color-white">
+                <button
+                    @click="clickButton"
+                    class="button button--size-xs button--color-white"
+                >
                     {{ button }}
                 </button>
             </div>
@@ -18,38 +25,36 @@
 </template>
 
 <script>
-import bannerBackground from '@/assets/images/banner-backgound.png'
+import bannerBackground from '@/assets/images/banner-backgound.png';
 
 export default {
     name: 'BaseBanner',
     props: {
         title: {
-            type: String
+            type: String,
         },
         text: {
-            type: String
+            type: String,
         },
         button: {
-            type: String
-        }
+            type: String,
+        },
     },
     emits: ['clickButton'],
     data() {
         return {
-            bannerBackground
-        }
+            bannerBackground,
+        };
     },
     methods: {
         clickButton() {
-            this.$emit('clickButton')
-        }
-    }
-}
+            this.$emit('clickButton');
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .banner {
     width: 1045px;
     height: 126px;

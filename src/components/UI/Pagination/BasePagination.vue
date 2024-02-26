@@ -1,8 +1,5 @@
 <template>
-    <div
-        v-show="totalAmountData >= displayAmountData"
-        class="pagination"
-    >
+    <div v-show="totalAmountData >= displayAmountData" class="pagination">
         <div class="page-wrapper">
             <button
                 v-show="showButtonPrevPages"
@@ -28,10 +25,7 @@
                     alt="button-back"
                 />
             </button>
-            <template
-                v-for="page in pageCount.showPages"
-                :key="page"
-            >
+            <template v-for="page in pageCount.showPages" :key="page">
                 <button
                     @click="(this.currentPage = page - 1), paginatedData()"
                     class="button-page"
@@ -152,12 +146,12 @@ export default {
                 totalPages.length
             ) {
                 showPages = totalPages.slice(
-                    totalPages.length - this.quantityPagesDisplay
+                    totalPages.length - this.quantityPagesDisplay,
                 );
             } else {
                 showPages = totalPages.slice(
                     this.currentPage,
-                    this.currentPage + this.quantityPagesDisplay
+                    this.currentPage + this.quantityPagesDisplay,
                 );
             }
 
@@ -186,8 +180,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .button-page {
     width: 40px;
     height: 40px;

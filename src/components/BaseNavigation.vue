@@ -1,12 +1,19 @@
 <template>
     <nav class="nav">
-        <div class="hamburger__bg" :class="{ 'hamburger__bg--active': showMenu }"></div>
+        <div
+            class="hamburger__bg"
+            :class="{ 'hamburger__bg--active': showMenu }"
+        ></div>
         <div class="wrapper">
             <div class="nav__box">
                 <img class="logo" :src="themeImages.logo" alt="logo" />
                 <div class="nav__inner">
                     <ul class="nav__menu">
-                        <li class="nav__menu-item" v-for="(item, index) in menu" :key="index">
+                        <li
+                            class="nav__menu-item"
+                            v-for="(item, index) in menu"
+                            :key="index"
+                        >
                             <router-link :to="item.path" class="nav__menu-link">
                                 {{ item.name }}
                             </router-link>
@@ -39,7 +46,10 @@
                 />
                 <div
                     class="nav__inner"
-                    :class="{ 'nav__inner--active': showMenu, [`nav__inner--${theme}`]: true }"
+                    :class="{
+                        'nav__inner--active': showMenu,
+                        [`nav__inner--${theme}`]: true,
+                    }"
                 >
                     <div class="nav__inner-header">
                         <button
@@ -52,7 +62,11 @@
                     </div>
 
                     <ul class="nav__menu">
-                        <li class="nav__menu-item" v-for="(item, index) in menu" :key="index">
+                        <li
+                            class="nav__menu-item"
+                            v-for="(item, index) in menu"
+                            :key="index"
+                        >
                             <router-link
                                 @click="showMenu = false"
                                 :to="item.path"
@@ -71,31 +85,32 @@
                     v-if="showModalCallback"
                     :show-modal="showModalCallback"
                     @close-modal="showModalCallback = false"
-            /></transition>
+                />
+            </transition>
         </Teleport>
     </nav>
 </template>
 
 <script>
-import logoWhite from '@/assets/images/logo-white.svg'
-import logoBlack from '@/assets/images/logo-black.svg'
-import userWhite from '@/assets/images/icon-user-white.svg'
-import userBlack from '@/assets/images/icon-user-black.svg'
-import phoneWhite from '@/assets/images/icon-phone-white.svg'
-import phoneBlack from '@/assets/images/icon-phone-black.svg'
+import logoWhite from '@/assets/images/logo-white.svg';
+import logoBlack from '@/assets/images/logo-black.svg';
+import userWhite from '@/assets/images/icon-user-white.svg';
+import userBlack from '@/assets/images/icon-user-black.svg';
+import phoneWhite from '@/assets/images/icon-phone-white.svg';
+import phoneBlack from '@/assets/images/icon-phone-black.svg';
 
-import ModalCallback from '@/components/UI/Modal/ModalCallback.vue'
+import ModalCallback from '@/components/UI/Modal/ModalCallback.vue';
 
 export default {
     name: 'BaseNavigation',
     components: {
-        ModalCallback
+        ModalCallback,
     },
     props: {
         theme: {
             type: String,
-            default: 'black'
-        }
+            default: 'black',
+        },
     },
     data() {
         return {
@@ -106,41 +121,41 @@ export default {
                 { name: 'Программы', path: '/programs' },
                 { name: 'Аренда', path: '/rent' },
                 { name: 'Вопросы', path: '/questions' },
-                { name: 'Контакты', path: '/contacts' }
+                { name: 'Контакты', path: '/contacts' },
             ],
             showMenu: false,
-            fixedNav: false
-        }
+            fixedNav: false,
+        };
     },
     watch: {
         showMenu() {
-            const body = document.querySelector('body')
-            const app = document.querySelector('#app')
-            let btnTop = document.querySelector('.scroll-top')
+            const body = document.querySelector('body');
+            const app = document.querySelector('#app');
+            let btnTop = document.querySelector('.scroll-top');
 
-            body.style.overflow = this.showMenu ? 'hidden' : ''
-            app.style.overflow = this.showMenu ? 'hidden' : ''
-            btnTop.style.zIndex = this.showMenu ? 0 : ''
-        }
+            body.style.overflow = this.showMenu ? 'hidden' : '';
+            app.style.overflow = this.showMenu ? 'hidden' : '';
+            btnTop.style.zIndex = this.showMenu ? 0 : '';
+        },
     },
     computed: {
         themeImages() {
-            let images = {}
+            let images = {};
 
             if (this.theme === 'white') {
-                images.logo = logoWhite
-                images.user = userWhite
-                images.phone = phoneWhite
+                images.logo = logoWhite;
+                images.user = userWhite;
+                images.phone = phoneWhite;
             } else if (this.theme === 'black') {
-                images.logo = logoBlack
-                images.user = userBlack
-                images.phone = phoneBlack
+                images.logo = logoBlack;
+                images.user = userBlack;
+                images.phone = phoneBlack;
             }
 
-            return images
-        }
-    }
-}
+            return images;
+        },
+    },
+};
 </script>
 
 <style scoped lang="scss">
@@ -148,7 +163,7 @@ export default {
     padding: 10px 0;
     position: sticky;
     top: 0;
-    z-index: 99;
+    z-index: 999;
     background-color: $white;
     box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.07);
 

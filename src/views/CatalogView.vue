@@ -255,7 +255,6 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@import '@/assets/styles/theme.scss';
 @import '@/assets/styles/pageProduct.scss';
 
 ::v-deep {

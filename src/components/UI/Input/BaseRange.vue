@@ -131,20 +131,20 @@ input[type='range'].styled-slider:active::-webkit-slider-runnable-track {
 }
 
 input[type='range'].styled-slider.slider-progress::-webkit-slider-runnable-track {
-    background: linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100%
-            no-repeat,
+    background:
+        linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100% no-repeat,
         $gray-light;
 }
 
 input[type='range'].styled-slider.slider-progress:hover::-webkit-slider-runnable-track {
-    background: linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100%
-            no-repeat,
+    background:
+        linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100% no-repeat,
         $gray-light;
 }
 
 input[type='range'].styled-slider.slider-progress:active::-webkit-slider-runnable-track {
-    background: linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100%
-            no-repeat,
+    background:
+        linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100% no-repeat,
         $gray-light;
 }
 
@@ -183,20 +183,20 @@ input[type='range'].styled-slider:active::-moz-range-track {
 }
 
 input[type='range'].styled-slider.slider-progress::-moz-range-track {
-    background: linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100%
-            no-repeat,
+    background:
+        linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100% no-repeat,
         $gray-light;
 }
 
 input[type='range'].styled-slider.slider-progress:hover::-moz-range-track {
-    background: linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100%
-            no-repeat,
+    background:
+        linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100% no-repeat,
         $gray-light;
 }
 
 input[type='range'].styled-slider.slider-progress:active::-moz-range-track {
-    background: linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100%
-            no-repeat,
+    background:
+        linear-gradient($red-dark, $red-dark) 0 / var(--sx) 100% no-repeat,
         $gray-light;
 }
 
@@ -262,5 +262,19 @@ input[type='range'].styled-slider.slider-progress:hover::-ms-fill-lower {
 
 input[type='range'].styled-slider.slider-progress:active::-ms-fill-lower {
     background: $red-dark;
+}
+
+@include media-query($xs) {
+    input[type='range'].styled-slider {
+        height: 1.7em;
+    }
+    input[type='range'].styled-slider::-webkit-slider-thumb {
+        width: 13px;
+        height: 123x;
+        margin-top: calc(3px * 0.5 - 13px * 0.5);
+    }
+    input[type='range'].styled-slider::-webkit-slider-runnable-track {
+        height: 3px;
+    }
 }
 </style>

@@ -6,13 +6,11 @@
 
 <script>
 export default {
-    name: 'TheLoaderLocal'
-}
+    name: 'TheLoaderLocal',
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .wrapper {
     display: flex;
     justify-content: center;

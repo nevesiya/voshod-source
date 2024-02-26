@@ -1,6 +1,13 @@
 <template>
     <TheLoaderLocal v-if="loading" />
-    <form v-else @submit.prevent="submit" novalidate action="#" class="form" ref="form">
+    <form
+        v-else
+        @submit.prevent="submit"
+        novalidate
+        action="#"
+        class="form"
+        ref="form"
+    >
         <div class="form__input-text">
             <div class="form__box">
                 <input
@@ -8,7 +15,9 @@
                     placeholder="Имя"
                     type="text"
                     class="form__first-name"
-                    :class="{ form__error: v$.firstName.$error }"
+                    :class="{
+                        form__error: v$.firstName.$error,
+                    }"
                 />
                 <span v-if="v$.firstName.$error" class="form__error-text">
                     {{ v$.firstName.$errors[0].$message }}
@@ -20,7 +29,9 @@
                     placeholder="Фамилия"
                     type="text"
                     class="form__last-name"
-                    :class="{ form__error: v$.lastName.$error }"
+                    :class="{
+                        form__error: v$.lastName.$error,
+                    }"
                 />
                 <span v-if="v$.lastName.$error" class="form__error-text">
                     {{ v$.lastName.$errors[0].$message }}
@@ -39,7 +50,9 @@
                 <input
                     type="tel"
                     class="form__tel form__tel--above"
-                    :class="{ form__error: v$.tel.$error }"
+                    :class="{
+                        form__error: v$.tel.$error,
+                    }"
                     minlength="17"
                     v-model="tel"
                     v-imask="mask"
@@ -57,7 +70,9 @@
                         placeholder="E-mail"
                         type="email"
                         class="form__mail"
-                        :class="{ form__error: v$.email.$error }"
+                        :class="{
+                            form__error: v$.email.$error,
+                        }"
                     />
                     <span v-if="v$.email.$error" class="form__error-text">
                         {{ v$.email.$errors[0].$message }}
@@ -74,7 +89,11 @@
             </template>
         </div>
         <div class="form__input-other">
-            <button type="submit" class="form__submit button" :class="themeButton">
+            <button
+                type="submit"
+                class="form__submit button"
+                :class="themeButton"
+            >
                 {{ nameButton }}
             </button>
             <template v-if="showCheckbox">
@@ -86,18 +105,24 @@
                         v-model="toggle"
                         true-value="true"
                         false-value="false"
-                        :class="{ 'form__checkbox-error': this.notChecked }"
+                        :class="{
+                            'form__checkbox-error': this.notChecked,
+                        }"
                     />
                     <label
                         class="form__checkbox-label"
                         :for="idCheckbox"
-                        :class="{ 'form__checkbox-error': this.notChecked }"
+                        :class="{
+                            'form__checkbox-error': this.notChecked,
+                        }"
                     >
                         Я соглашаюсь с
                         <router-link
                             to="/privacy-police"
                             class="form__checkbox-link"
-                            :class="{ 'form__checkbox-error': this.notChecked }"
+                            :class="{
+                                'form__checkbox-error': this.notChecked,
+                            }"
                         >
                             Условиями обработки персональных данных
                         </router-link>
@@ -109,41 +134,47 @@
 </template>
 
 <script>
-import { IMaskDirective } from 'vue-imask'
-import { useVuelidate } from '@vuelidate/core'
-import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
-import TheLoaderLocal from '@/components/UI/Loader/TheLoaderLocal.vue'
+import { IMaskDirective } from 'vue-imask';
+import { useVuelidate } from '@vuelidate/core';
+import {
+    required,
+    email,
+    minLength,
+    maxLength,
+    helpers,
+} from '@vuelidate/validators';
+import TheLoaderLocal from '@/components/UI/Loader/TheLoaderLocal.vue';
 // import axios from 'axios';
 
-const alpha2 = helpers.regex(/^([а-яёА-ЯЁa-zA-Z\s]+)$/)
+const alpha2 = helpers.regex(/^([а-яёА-ЯЁa-zA-Z\s]+)$/);
 
 export default {
     name: 'BaseForm',
     directives: {
-        imask: IMaskDirective
+        imask: IMaskDirective,
     },
     components: {
-        TheLoaderLocal
+        TheLoaderLocal,
     },
     props: {
         showComment: {
             type: Boolean,
-            default: true
+            default: true,
         },
         showEmail: {
             type: Boolean,
-            default: true
+            default: true,
         },
         showCheckbox: {
             type: Boolean,
-            default: true
+            default: true,
         },
         themeButton: {
-            type: String
+            type: String,
         },
         nameButton: {
-            type: String
-        }
+            type: String,
+        },
     },
     emits: ['sucSendForm'],
     data() {
@@ -161,36 +192,36 @@ export default {
                 alpha2: 'Поле может содержать только буквы',
                 minLength: 'Пожалуйста, укажите полный номер',
                 maxLength: 'Не более 30 символов',
-                email: 'Пожалуйста, укажите верную почту'
+                email: 'Пожалуйста, укажите верную почту',
             },
             mask: {
                 mask: '{+ 7} 000 000 00 00',
                 lazy: true,
-                placeholderChar: ' '
+                placeholderChar: ' ',
             },
             maskOff: {
                 mask: '{+ 7} 000 000 00 00',
                 lazy: false,
-                placeholderChar: '0'
+                placeholderChar: '0',
             },
             loading: false,
-            idCheckbox: ''
-        }
+            idCheckbox: '',
+        };
     },
     watch: {
         toggle() {
             if (this.toggle == 'true') {
-                this.notChecked = false
+                this.notChecked = false;
             }
-        }
+        },
     },
     methods: {
         getIdCheckbox() {
-            const attrs = this.$refs.form.attributes
+            const attrs = this.$refs.form.attributes;
 
             for (let i = 0; i < attrs.length; i++) {
                 if (attrs[i].name.startsWith('data-v')) {
-                    this.idCheckbox += ' ' + attrs[i].name
+                    this.idCheckbox += ' ' + attrs[i].name;
                 }
             }
         },
@@ -204,12 +235,12 @@ export default {
         //     console.log('complete', maskRef.unmaskedValue);
         // },
         submit() {
-            this.v$.$validate()
+            this.v$.$validate();
 
             if (this.toggle == '' || this.toggle == 'false') {
-                this.notChecked = true
+                this.notChecked = true;
             } else if (this.toggle == 'true') {
-                this.notChecked = false
+                this.notChecked = false;
             }
 
             if (
@@ -219,16 +250,16 @@ export default {
                 (this.v$.email.$error || this.showEmail) &&
                 (!this.notChecked || !this.showCheckbox)
             ) {
-                this.formData.first_name = this.firstName
-                this.formData.last_name = this.lastName
-                this.formData.email = this.email
-                this.formData.tel = this.tel
-                this.loading = true
+                this.formData.first_name = this.firstName;
+                this.formData.last_name = this.lastName;
+                this.formData.email = this.email;
+                this.formData.tel = this.tel;
+                this.loading = true;
 
                 setTimeout(() => {
-                    this.loading = false
-                    this.$emit('sucSendForm')
-                }, 1000)
+                    this.loading = false;
+                    this.$emit('sucSendForm');
+                }, 1000);
                 // this.post();
             }
         },
@@ -264,39 +295,58 @@ export default {
             //     textarea.style.height = 'auto';
             //     textarea.style.height = textarea.scrollHeight + 'px';
             // }
-        }
+        },
     },
     validations() {
         return {
             firstName: {
-                required: helpers.withMessage(this.errorText.required, required),
+                required: helpers.withMessage(
+                    this.errorText.required,
+                    required,
+                ),
                 alpha2: helpers.withMessage(this.errorText.alpha2, alpha2),
-                maxLength: helpers.withMessage(this.errorText.maxLength, maxLength(30))
+                maxLength: helpers.withMessage(
+                    this.errorText.maxLength,
+                    maxLength(30),
+                ),
             },
             lastName: {
-                required: helpers.withMessage(this.errorText.required, required),
+                required: helpers.withMessage(
+                    this.errorText.required,
+                    required,
+                ),
                 alpha2: helpers.withMessage(this.errorText.alpha2, alpha2),
-                maxLength: helpers.withMessage(this.errorText.maxLength, maxLength(30))
+                maxLength: helpers.withMessage(
+                    this.errorText.maxLength,
+                    maxLength(30),
+                ),
             },
             tel: {
-                required: helpers.withMessage(this.errorText.required, required),
-                minLength: helpers.withMessage(this.errorText.minLength, minLength(17))
+                required: helpers.withMessage(
+                    this.errorText.required,
+                    required,
+                ),
+                minLength: helpers.withMessage(
+                    this.errorText.minLength,
+                    minLength(17),
+                ),
             },
             email: {
-                required: helpers.withMessage(this.errorText.required, required),
-                email: helpers.withMessage(this.errorText.email, email)
-            }
-        }
+                required: helpers.withMessage(
+                    this.errorText.required,
+                    required,
+                ),
+                email: helpers.withMessage(this.errorText.email, email),
+            },
+        };
     },
     mounted() {
-        this.getIdCheckbox()
-    }
-}
+        this.getIdCheckbox();
+    },
+};
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/theme.scss';
-
 .form {
     @include flex-between();
     flex-direction: column;
@@ -438,6 +488,7 @@ textarea {
 
 input {
     width: 100%;
+    height: 100%;
     &[type] {
         @include font(400, 16px, 140%);
         color: $black;

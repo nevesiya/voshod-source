@@ -7,15 +7,13 @@ export default {
     name: 'BaseSkeleton',
     props: {
         width: {
-            type: String
-            // default: '100%' // Ширина по умолчанию
+            type: String,
         },
         height: {
-            type: String
-            // default: '100%' // Высота по умолчанию
-        }
-    }
-}
+            type: String,
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>

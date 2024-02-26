@@ -24,13 +24,14 @@
         <p class="card__plate-number">{{ product.registration }}</p>
         <p class="card__payment">
             Аренда
-            <span class="card__payment-rent"
-                >{{ product.payment.toLocaleString() }} ₽ <span> / день</span></span
-            >
+            <span class="card__payment-rent">
+                {{ product.payment.toLocaleString() }} ₽
+                <span>/ день</span>
+            </span>
         </p>
         <p class="card__price card__price-rent">
             Депозит от
-            <span>{{ product.price.toLocaleString() }} ₽ </span>
+            <span>{{ product.price.toLocaleString() }} ₽</span>
         </p>
         <button
             @click="showModal = true"
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import CardMixin from '@/mixins/CardMixin'
+import CardMixin from '@/mixins/CardMixin';
 
 export default {
     name: 'CardRent',
@@ -57,10 +58,10 @@ export default {
     emits: ['moreDetails'],
     methods: {
         showMoreDetails() {
-            this.$emit('moreDetails', this.product)
-        }
-    }
-}
+            this.$emit('moreDetails', this.product);
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>

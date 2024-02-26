@@ -22,15 +22,21 @@
         </router-link>
         <p class="card__payment">
             Минимальный платёж
-            <span class="card__payment-leasing">{{ product.payment.toLocaleString() }} ₽</span>
+            <span class="card__payment-leasing">
+                {{ product.payment.toLocaleString() }} ₽
+            </span>
         </p>
         <p class="card__price">
             Цена от
             <span>{{ product.price.toLocaleString() }} ₽</span>
         </p>
-        <a class="card__more" href="#" @click.prevent="selectSimilarModels(product.model)"
-            >Посмотреть похожие модели</a
+        <a
+            class="card__more"
+            href="#"
+            @click.prevent="selectSimilarModels(product.model)"
         >
+            Посмотреть похожие модели
+        </a>
         <button
             @click="showModal = true"
             class="card__book button--size-m button button--color-red"
@@ -48,7 +54,7 @@
 </template>
 
 <script>
-import CardMixin from '@/mixins/CardMixin'
+import CardMixin from '@/mixins/CardMixin';
 
 export default {
     name: 'CardLeasing',
@@ -56,10 +62,10 @@ export default {
     emits: ['selectedModel', 'moreDetails'],
     methods: {
         selectSimilarModels(model) {
-            this.$emit('selectedModel', model)
-        }
-    }
-}
+            this.$emit('selectedModel', model);
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>

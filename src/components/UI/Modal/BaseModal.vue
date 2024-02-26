@@ -11,11 +11,13 @@
                         />
                         <div class="modal-promo__text">
                             <h3 class="modal-promo__title">
-                                Доступные <br />
+                                Доступные
+                                <br />
                                 автомобили
                             </h3>
                             <p class="modal-promo__slogan">
-                                С нами просто. <br />
+                                С нами просто.
+                                <br />
                                 Индивидуальные решения для вас.
                             </p>
                         </div>
@@ -47,10 +49,7 @@
                             >
                                 {{ text }}
                             </p>
-                            <slot
-                                v-if="showForm"
-                                name="form"
-                            ></slot>
+                            <slot v-if="showForm" name="form"></slot>
                         </div>
                         <button
                             v-if="!showBtnBack"
@@ -98,8 +97,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/theme.scss';
-
 .modal {
     display: flex;
 }
@@ -157,6 +154,8 @@ export default {
     }
 
     &__btn-back {
+        display: flex;
+        align-items: center;
         @include font(600, 18px);
         letter-spacing: 0.01em;
         text-transform: uppercase;
@@ -167,8 +166,10 @@ export default {
             display: inline-block;
             transform: rotate(180deg);
             color: $gray;
-            margin-right: 4px;
+            margin-right: 8px;
             transition: transform 0.2s ease-in-out;
+            width: 8px;
+            height: 18px;
         }
 
         &:hover::before {

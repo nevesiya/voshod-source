@@ -3,8 +3,8 @@
         <button
             @click="scrollTop"
             v-show="showButton"
-            alt="arrow up"
-            class="scroll-up"
+            alt="arrow top"
+            class="scroll-top"
         ></button>
     </transition>
 </template>
@@ -34,9 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/theme.scss';
-
-.scroll-up {
+.scroll-top {
     position: fixed;
     right: 0;
     bottom: 0;

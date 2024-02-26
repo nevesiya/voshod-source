@@ -10,15 +10,10 @@
             v-model="selectedAll"
             @input="checkSelectedAll"
         />
-        <label
-            class="button button--color-red button--size-xs"
-            :for="name"
-            >Все</label
-        >
-        <template
-            v-for="option in options"
-            :key="option"
-        >
+        <label class="button button--color-red button--size-xs" :for="name">
+            Все
+        </label>
+        <template v-for="option in options" :key="option">
             <input
                 type="checkbox"
                 :id="option"
@@ -31,8 +26,9 @@
             <label
                 class="button button--color-black button--size-xs"
                 :for="option"
-                >{{ option }}</label
             >
+                {{ option }}
+            </label>
         </template>
     </div>
 </template>
@@ -85,8 +81,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .sort {
     display: flex;
     gap: 20px;

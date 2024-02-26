@@ -9,14 +9,20 @@
                     <template #body>
                         <div class="main-header__box">
                             <div class="main-header__box-info">
-                                <h2 class="main-header__box-title">Быстрая аренда автомобилей</h2>
+                                <h2 class="main-header__box-title">
+                                    Быстрая аренда автомобилей
+                                </h2>
                                 <p class="main-header__box-text">
-                                    Вы можете забронировать автомобиль в аренду на сайте
-                                    самостоятельно или позвонить нам по телефону:
+                                    Вы можете забронировать автомобиль в аренду
+                                    на сайте самостоятельно или позвонить нам по
+                                    телефону:
                                 </p>
-                                <a class="main-header__box-tel" href="tel:+7 (812) 317-68-15"
-                                    >+7 (812) 317-68-15</a
+                                <a
+                                    class="main-header__box-tel"
+                                    href="tel:+7 (812) 317-68-15"
                                 >
+                                    +7 (812) 317-68-15
+                                </a>
                             </div>
                             <div class="main-header__questions">
                                 <div class="main-header__questions-accordion">
@@ -27,7 +33,10 @@
                                     />
                                 </div>
                                 <div class="main-header__questions-accordion">
-                                    <BaseQuestion :questions="questionsRent" :start-slice="2" />
+                                    <BaseQuestion
+                                        :questions="questionsRent"
+                                        :start-slice="2"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -107,7 +116,11 @@
                 </div>
                 <div class="main-content">
                     <div class="filter-group">
-                        <BaseSkeleton :height="'30px'" :width="'100%'" v-if="loading" />
+                        <BaseSkeleton
+                            :height="'30px'"
+                            :width="'100%'"
+                            v-if="loading"
+                        />
                         <template v-else>
                             <FilterButton
                                 :reset-selected="reset"
@@ -132,11 +145,16 @@
                         <template v-if="filteringProduct.length">
                             <TransitionGroup name="collapse">
                                 <template
-                                    v-for="product in filteringProduct.slice(pageStart, pageEnd)"
+                                    v-for="product in filteringProduct.slice(
+                                        pageStart,
+                                        pageEnd
+                                    )"
                                     :key="product.id"
                                 >
                                     <CardRent
-                                        @more-details="openDetailsProductPage($event)"
+                                        @more-details="
+                                            openDetailsProductPage($event)
+                                        "
                                         :product="product"
                                     />
                                 </template>
@@ -146,11 +164,17 @@
                             <ModalRentDetail
                                 v-if="showModalRentMore"
                                 :product="productMoreDetails"
-                                @closeModal="(showModalRentMore = false), $router.push('/rent')"
+                                @closeModal="
+                                    (showModalRentMore = false),
+                                        $router.push('/rent')
+                                "
                             />
                         </transition>
                     </div>
-                    <div v-if="!filteringProduct.length && !loading" class="product-null">
+                    <div
+                        v-if="!filteringProduct.length && !loading"
+                        class="product-null"
+                    >
                         Ничего не найдено
                     </div>
                     <BaseBanner
@@ -161,7 +185,9 @@
                     />
                     <BasePagination
                         :total-amount-data="filteringProduct.length"
-                        @actual-page="(pageStart = $event.start), (pageEnd = $event.end)"
+                        @actual-page="
+                            (pageStart = $event.start), (pageEnd = $event.end)
+                        "
                     />
                 </div>
             </div>
@@ -236,7 +262,9 @@ export default {
         async getRentCars() {
             this.loading = true
 
-            const path = import.meta.env.DEV ? `public/data/rent_car.json` : `data/rent_car.json`
+            const path = import.meta.env.DEV
+                ? `public/data/rent_car.json`
+                : `data/rent_car.json`
 
             this.rentCar = await fetchData(
                 'https://my.api.mockaroo.com/rent_cars.json?key=a84cf050*',
@@ -263,10 +291,19 @@ export default {
             this.drive = helpers.getUniqueElements(this.product, 'drive')
             this.fuel = helpers.getUniqueElements(this.product, 'fuel')
             this.body = helpers.getUniqueElements(this.product, 'body')
-            this.transmission = helpers.getUniqueElements(this.product, 'transmission')
+            this.transmission = helpers.getUniqueElements(
+                this.product,
+                'transmission'
+            )
             this.service = helpers.getUniqueElements(this.product, 'service')
-            ;[this.minPrice, this.maxPrice] = helpers.findMinMaxDigits(this.product, 'price')
-            ;[this.minYear, this.maxYear] = helpers.findMinMaxDigits(this.product, 'year')
+            ;[this.minPrice, this.maxPrice] = helpers.findMinMaxDigits(
+                this.product,
+                'price'
+            )
+            ;[this.minYear, this.maxYear] = helpers.findMinMaxDigits(
+                this.product,
+                'year'
+            )
         },
 
         checkOpenDetailsProduct() {
@@ -302,7 +339,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
 @import '@/assets/styles/pageProduct.scss';
 
 .main-header {
@@ -399,7 +435,8 @@ export default {
             letter-spacing: 0.14px;
             &::after {
                 content: '';
-                background: url(@/assets/images/arrow-right-small-white.svg), $black;
+                background: url(@/assets/images/arrow-right-small-white.svg),
+                    $black;
                 filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.15));
                 background-repeat: no-repeat;
                 background-position: center center;

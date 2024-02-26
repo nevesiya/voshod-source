@@ -8,13 +8,11 @@
 
 <script>
 export default {
-    name: 'TheLoader'
-}
+    name: 'TheLoader',
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .wrapper {
     display: flex;
     justify-content: center;

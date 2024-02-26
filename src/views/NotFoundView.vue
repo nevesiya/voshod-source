@@ -3,10 +3,7 @@
         <div class="not-found">
             <div class="not-found__error">404</div>
             <div class="not-found__text">Страница не найдена</div>
-            <router-link
-                to="/"
-                class="button button--color-red button--size-m"
-            >
+            <router-link to="/" class="button button--color-red button--size-m">
                 Перейти на главную
             </router-link>
         </div>
@@ -15,13 +12,11 @@
 
 <script>
 export default {
-    name: 'NotFound',
-};
+    name: 'NotFound'
+}
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .not-found {
     display: flex;
     flex-direction: column;

@@ -14,11 +14,9 @@
                 v-model="selected"
                 @change="this.$emit('selectedItems', this.selected)"
             />
-            <label
-                class="filter-checkbox__label"
-                :for="name"
-                >{{ checkModel(name, optionalNames) }}</label
-            >
+            <label class="filter-checkbox__label" :for="name">
+                {{ checkModel(name, optionalNames) }}
+            </label>
         </div>
     </div>
     <button
@@ -136,8 +134,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .filter-checkbox {
     &__button {
         @include font(500, 14px);

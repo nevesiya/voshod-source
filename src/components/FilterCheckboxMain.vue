@@ -19,8 +19,9 @@
                 'filter-checkbox__label--default': mainToggleChecked,
             }"
             @click="checkSelected"
-            >Все</label
         >
+            Все
+        </label>
     </div>
 </template>
 
@@ -56,8 +57,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .filter-checkbox {
     &__input {
         width: auto !important;

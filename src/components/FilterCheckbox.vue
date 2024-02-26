@@ -5,7 +5,10 @@
                 <p class="title-filter">{{ titleFilter }}</p>
             </template>
             <template #body>
-                <FilterCheckboxMain @selected-all="all = $event" :selected-items="items" />
+                <FilterCheckboxMain
+                    @selected-all="all = $event"
+                    :selected-items="items"
+                />
                 <FilterCheckboxItems
                     :names="options"
                     :display-limit="displayLimit"
@@ -18,58 +21,56 @@
 </template>
 
 <script>
-import BaseAccordion from '@/components/UI/Accordion/BaseAccordion.vue'
-import FilterCheckboxItems from '@/components/FilterCheckboxItems.vue'
-import FilterCheckboxMain from '@/components/FilterCheckboxMain.vue'
+import BaseAccordion from '@/components/UI/Accordion/BaseAccordion.vue';
+import FilterCheckboxItems from '@/components/FilterCheckboxItems.vue';
+import FilterCheckboxMain from '@/components/FilterCheckboxMain.vue';
 
 export default {
     name: 'FilterCheckbox',
     components: {
         FilterCheckboxItems,
         FilterCheckboxMain,
-        BaseAccordion
+        BaseAccordion,
     },
     props: {
         options: {
             type: Array,
-            default: new Array(0)
+            default: new Array(0),
         },
         displayLimit: {
             type: Boolean,
-            default: false
+            default: false,
         },
         resetSelected: {
-            type: Number
+            type: Number,
         },
         titleFilter: {
-            type: String
+            type: String,
         },
         open: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     emits: ['selectedItems'],
     data() {
         return {
             all: [],
-            items: []
-        }
+            items: [],
+        };
     },
     watch: {
         items() {
-            this.$emit('selectedItems', this.items)
+            this.$emit('selectedItems', this.items);
         },
         resetSelected() {
-            this.all = []
-        }
-    }
-}
+            this.all = [];
+        },
+    },
+};
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/theme.scss';
-
 .filter-checkbox {
     &__button {
         @include font(500, 14px);

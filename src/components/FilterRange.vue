@@ -70,39 +70,39 @@
 </template>
 
 <script>
-import BaseAccordion from '@/components/UI/Accordion/BaseAccordion.vue'
+import BaseAccordion from '@/components/UI/Accordion/BaseAccordion.vue';
 
-import helpers from '@/helpers/global'
-import Slider from '@vueform/slider'
-import { IMaskDirective } from 'vue-imask'
-import '@vueform/slider/themes/default.scss'
+import helpers from '@/helpers/global';
+import Slider from '@vueform/slider';
+import { IMaskDirective } from 'vue-imask';
+import '@vueform/slider/themes/default.scss';
 
 export default {
     name: 'FilterRange',
     components: { Slider, BaseAccordion },
     directives: {
-        imask: IMaskDirective
+        imask: IMaskDirective,
     },
     props: {
         titleFilter: {
-            type: String
+            type: String,
         },
         valueMin: {
-            type: Number
+            type: Number,
         },
         valueMax: {
-            type: Number
+            type: Number,
         },
         valueType: {
-            type: String
+            type: String,
         },
         resetSelected: {
-            type: Number
+            type: Number,
         },
         open: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     emits: ['selectedMin', 'selectedMax'],
     data() {
@@ -112,7 +112,7 @@ export default {
                 min: this.valueMin,
                 max: this.valueMax,
                 tooltips: false,
-                lazy: false
+                lazy: false,
             },
             maskAmount: {
                 mask: Number, // enable number mask
@@ -121,121 +121,116 @@ export default {
                 padFractionalZeros: false, // if true, then pads zeros at end to the length of scale
                 normalizeZeros: true, // appends or removes zeros at ends
                 radix: ',', // fractional delimiter
-                mapToRadix: ['.'] // symbols to process as radix
+                mapToRadix: ['.'], // symbols to process as radix
             },
             maskYear: {
                 mask: '0000',
                 lazy: true,
-                placeholderChar: '0'
+                placeholderChar: '0',
             },
             inputMin: '',
-            inputMax: ''
-        }
+            inputMax: '',
+        };
     },
     watch: {
         valueMin() {
-            this.slider.min = this.valueMin
-            this.slider.value[0] = this.valueMin
+            this.slider.min = this.valueMin;
+            this.slider.value[0] = this.valueMin;
         },
         valueMax() {
-            this.slider.max = this.valueMax
-            this.slider.value[1] = this.valueMax
+            this.slider.max = this.valueMax;
+            this.slider.value[1] = this.valueMax;
         },
         resetSelected() {
-            this.inputMin = this.inputMax = ''
-            this.addValueMinRange()
-            this.addValueMaxRange()
+            this.inputMin = this.inputMax = '';
+            this.addValueMinRange();
+            this.addValueMaxRange();
         },
-        open() {
-            console.log(this.open)
-        }
     },
     computed: {
         currentStep() {
-            let tmp
+            let tmp;
 
             if (this.valueType === 'amount') {
-                tmp = 1000
+                tmp = 1000;
             } else if (this.valueType === 'year') {
-                tmp = 1
+                tmp = 1;
             }
 
-            return tmp
-        }
+            return tmp;
+        },
     },
     methods: {
         addValueInput(e) {
-            this.slider.value[0] = e[0]
-            this.slider.value[1] = e[1]
+            this.slider.value[0] = e[0];
+            this.slider.value[1] = e[1];
 
             if (e[0] != this.valueMin) {
-                this.inputMin = e[0]
+                this.inputMin = e[0];
             } else {
-                this.inputMin = ''
+                this.inputMin = '';
             }
 
             if (e[1] != this.valueMax) {
-                this.inputMax = e[1]
+                this.inputMax = e[1];
             } else {
-                this.inputMax = ''
+                this.inputMax = '';
             }
         },
 
         addValueMinRange() {
-            this.inputMin = String(this.inputMin)
-            this.inputMin = this.inputMin.replace(/\s/g, '')
+            this.inputMin = String(this.inputMin);
+            this.inputMin = this.inputMin.replace(/\s/g, '');
 
             if (
                 this.inputMin > this.valueMin &&
                 this.inputMin < this.valueMax &&
                 (this.inputMin < this.inputMax || this.inputMax == '')
             ) {
-                this.slider.value[0] = this.inputMin
+                this.slider.value[0] = this.inputMin;
             } else {
-                this.slider.value[0] = this.valueMin
-                this.inputMin = ''
+                this.slider.value[0] = this.valueMin;
+                this.inputMin = '';
             }
 
-            this.$emit('selectedMin', this.inputMin)
+            this.$emit('selectedMin', this.inputMin);
         },
 
         addValueMaxRange() {
-            this.inputMax = String(this.inputMax)
-            this.inputMax = this.inputMax.replace(/\s/g, '')
+            this.inputMax = String(this.inputMax);
+            this.inputMax = this.inputMax.replace(/\s/g, '');
 
             if (
                 this.inputMax < this.valueMax &&
                 this.inputMax > this.valueMin &&
                 this.inputMax > this.inputMin
             ) {
-                this.slider.value[1] = this.inputMax
+                this.slider.value[1] = this.inputMax;
             } else {
-                this.slider.value[1] = this.valueMax
-                this.inputMax = ''
+                this.slider.value[1] = this.valueMax;
+                this.inputMax = '';
             }
 
-            this.$emit('selectedMax', this.inputMax)
+            this.$emit('selectedMax', this.inputMax);
         },
 
         checkEndInputMin: helpers.debounce(function () {
-            this.addValueMinRange()
+            this.addValueMinRange();
         }, 2000),
 
         checkEndInputMax: helpers.debounce(function () {
-            this.addValueMaxRange()
+            this.addValueMaxRange();
         }, 2000),
 
         tranferValue() {
-            this.$emit('selectedMin', this.inputMin)
-            this.$emit('selectedMax', this.inputMax)
-        }
-    }
-}
+            this.$emit('selectedMin', this.inputMin);
+            this.$emit('selectedMax', this.inputMax);
+        },
+    },
+};
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/theme.scss';
-
 .filter-range {
     &__label {
     }

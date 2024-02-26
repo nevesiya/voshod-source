@@ -30,7 +30,9 @@
         <div class="calculator__term-payment">
             <ul class="calculator__table">
                 <li class="calculator__table-option">Срок</li>
-                <li class="calculator__table-value">{{ valueTermPayment }} мес.</li>
+                <li class="calculator__table-value">
+                    {{ valueTermPayment }} мес.
+                </li>
             </ul>
             <BaseRange
                 class="calculator__input"
@@ -42,17 +44,19 @@
         </div>
         <div class="calculator__calculation-result">
             <p class="calculator__calculation-day">
-                {{ resultDay.toLocaleString() }} ₽<span>в сутки</span>
+                {{ resultDay.toLocaleString() }} ₽
+                <span>в сутки</span>
             </p>
             <p class="calculator__calculation-month">
-                {{ resultMonth.toLocaleString() }} ₽<span>в месяц</span>
+                {{ resultMonth.toLocaleString() }} ₽
+                <span>в месяц</span>
             </p>
         </div>
     </div>
 </template>
 
 <script>
-import BaseRange from '@/components/UI/Input/BaseRange.vue'
+import BaseRange from '@/components/UI/Input/BaseRange.vue';
 
 export default {
     name: 'BaseCalculator',
@@ -60,49 +64,54 @@ export default {
     props: {
         percentDownPayment: {
             type: Number,
-            default: 20
+            default: 20,
         },
         termPayment: {
             type: Number,
-            default: 24
+            default: 24,
         },
         productPrice: {
-            type: Number
+            type: Number,
         },
         initialDownPayment: {
             type: Number,
-            default: 0
+            default: 0,
         },
         dynamicProductPrice: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     data() {
         return {
             valueDownPayment: '',
-            valueTermPayment: ''
-        }
+            valueTermPayment: '',
+        };
     },
     watch: {},
     computed: {
         resultDay() {
-            return Math.round(this.resultMonth / 30)
+            return Math.round(this.resultMonth / 30);
         },
 
         resultMonth() {
-            return Math.round((this.productPrice - this.valueDownPayment) / this.valueTermPayment)
+            return Math.round(
+                (this.productPrice - this.valueDownPayment) /
+                    this.valueTermPayment,
+            );
         },
 
         defaultDownPayment() {
-            return Math.round((this.productPrice * this.percentDownPayment) / 100)
+            return Math.round(
+                (this.productPrice * this.percentDownPayment) / 100,
+            );
         },
 
         transformToLocaleString() {
-            return this.valueDownPayment.toLocaleString()
-        }
-    }
-}
+            return this.valueDownPayment.toLocaleString();
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>

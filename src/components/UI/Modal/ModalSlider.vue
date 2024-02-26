@@ -8,7 +8,11 @@
                     alt="close"
                     class="modal-slider__btn-close"
                 />
-                <img :src="images[indexActiveImage]" alt="photo car" class="modal-slider__image" />
+                <img
+                    :src="images[indexActiveImage]"
+                    alt="photo car"
+                    class="modal-slider__image"
+                />
                 <BaseSlider
                     class="modal-slider__base-slider"
                     :images-number="images.length"
@@ -21,31 +25,29 @@
 </template>
 
 <script>
-import BaseSlider from '@/components/UI/Slider/BaseSlider.vue'
+import BaseSlider from '@/components/UI/Slider/BaseSlider.vue';
 
 export default {
     name: 'ModalSlider',
     components: { BaseSlider },
     props: {
         images: {
-            type: Array
+            type: Array,
         },
         primaryImage: {
-            type: Number
-        }
+            type: Number,
+        },
     },
     emits: ['closeModal'],
     data() {
         return {
-            indexActiveImage: ''
-        }
-    }
-}
+            indexActiveImage: '',
+        };
+    },
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/theme.scss';
-
 .modal-slider {
     position: relative;
     max-width: 1050px;
