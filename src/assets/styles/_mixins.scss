@@ -15,8 +15,55 @@
     background: $backround;
 }
 
-@mixin media-query($max-width) {
-    @media only screen and (width <= $max-width) {
-        @content;
+@mixin media-query($max-width, $max-height: null) {
+    @if $max-height {
+        @media screen and (max-width: $max-width), (max-height: $max-height) {
+            @content;
+        }
+    } @else {
+        @media screen and (max-width: $max-width) {
+            @content;
+        }
+    }
+}
+
+$max-width: 1920;
+$min-width: 360;
+$max-widthContainer: 1200;
+
+@mixin adaptive-value(
+    $property,
+    $startSize,
+    $minSize,
+    $type: 0,
+    $widthContainer: $max-widthContainer
+) {
+    $addSize: $startSize - $minSize;
+    @if $type == 1 {
+        #{$property}: $startSize + px;
+        @media (max-width: #{$widthContainer + px}) {
+            #{$property}: calc(
+                #{$minSize + px} + #{$addSize} *
+                    (
+                        (100vw - #{$min-width}px) / #{$widthContainer -
+                            $min-width}
+                    )
+            );
+        }
+    } @else if $type == 2 {
+        #{$property}: $startSize + px;
+        @media (min-width: #{$widthContainer + px}) {
+            #{$property}: calc(
+                #{$minSize + px} + #{$addSize} *
+                    ((100vw - #{$min-width}px) / #{$max-width - $min-width})
+            );
+        }
+    } @else {
+        #{$property}: calc(
+            #{$minSize +
+                px} +
+                #{$addSize} *
+                ((100vw - #{$min-width}px) / #{$max-width - $min-width})
+        );
     }
 }

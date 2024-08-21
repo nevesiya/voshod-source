@@ -1,5 +1,5 @@
 <template>
-    <transition name="slide-fade">
+    <transition name="fade">
         <button
             @click="scrollTop"
             v-show="showButton"
@@ -38,14 +38,13 @@ export default {
     position: fixed;
     right: 0;
     bottom: 0;
-    margin-right: 50px;
-    margin-bottom: 20px;
+    transform: translate(-50px, -20px);
     cursor: pointer;
     padding: 12px;
     border-radius: 8px;
     background: #111;
-    transition: all 0.2s ease-in-out;
     z-index: 99;
+    transition: all 0.3s ease-in-out;
 
     &:after {
         content: '';
@@ -59,7 +58,13 @@ export default {
 
     &:hover {
         box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.3);
-        transition: all 0.2s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+@include media-query($xxl) {
+    .scroll-top {
+        transform: translate(-16px, -16px);
     }
 }
 </style>

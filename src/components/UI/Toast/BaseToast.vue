@@ -4,7 +4,7 @@
             <div class="toast__content">
                 <slot name="content"></slot>
             </div>
-            <div class="toast__close" @click="showToast = false">
+            <div class="toast__close" @click="closeToast">
                 <slot name="close"></slot>
             </div>
         </div>
@@ -18,6 +18,17 @@ export default {
         return {
             showToast: true,
         };
+    },
+    methods: {
+        closeToast() {
+            sessionStorage.setItem('showToastFromCatalog', false);
+            this.showToast = false;
+        },
+    },
+    beforeMount() {
+        if (sessionStorage.getItem('showToastFromCatalog') === 'false') {
+            this.showToast = false;
+        }
     },
 };
 </script>

@@ -1,42 +1,36 @@
-@import '@/assets/styles/theme.scss';
-
 .card {
-    // display: grid;
-    // grid-template-rows: subgrid;
-    // grid-row: 1 / 8;
+    @include adaptive-value('padding-top', 25, 8, 0, 1400);
+    @include adaptive-value('padding-bottom', 25, 8, 0, 1400);
+    @include adaptive-value('padding-left', 30, 8, 0, 1400);
+    @include adaptive-value('padding-right', 30, 8, 0, 1400);
+    @include adaptive-value('width', 335, 161, 0, 1400);
+    @include adaptive-value('border-radius', 4, 2, 0, 1400);
     display: flex;
     flex-direction: column;
-    padding: 25px 30px;
-    width: 335px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
     transition: all 0.2s ease-in-out;
 
     &:hover {
-        // transform: translateY(-10px);
         box-shadow: 0px 0px 15px 5px rgba(191, 53, 53, 0.2);
     }
 
-    & * {
-        color: $black;
-    }
-
     &__label-box {
-        @include font(500, 16px, 19px);
+        @include font(500, clamp(0.5rem, 0.385rem + 0.513vw, 1rem));
+        @include adaptive-value('margin-bottom', 54, 27, 0, 1400);
+        @include adaptive-value('gap', 10, 4, 0, 1400);
         letter-spacing: 0.01em;
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
         flex-grow: 1;
         flex-shrink: 0;
         align-content: flex-start;
-        margin-bottom: 54px;
-        // min-height: 68px;
     }
 
     &__label {
-        padding: 5px 15px;
-        height: 29px;
+        @include adaptive-value('padding-top', 5, 2, 0, 1400);
+        @include adaptive-value('padding-bottom', 5, 2, 0, 1400);
+        @include adaptive-value('padding-left', 15, 8, 0, 1400);
+        @include adaptive-value('padding-right', 15, 8, 0, 1400);
         border-radius: 2px;
         background: $gray-light;
     }
@@ -60,25 +54,19 @@
     }
 
     &__image {
-        // margin-bottom: 62px;
-        margin-bottom: 50px;
+        @include adaptive-value('margin-bottom', 50, 25, 0, 1400);
     }
 
     &__name {
-        @include font(500, 30px, 36px);
-        letter-spacing: 0.01em;
-        text-transform: uppercase;
-        margin-bottom: 20px;
+        @include adaptive-value('margin-bottom', 20, 6, 0, 1400);
 
         * {
-            @include font(500, 30px, 36px);
-            letter-spacing: 0.01em;
+            @include font(500, clamp(1rem, 0.798rem + 0.897vw, 1.875rem));
             text-transform: uppercase;
         }
     }
 
     &__brand {
-        margin-right: 10px;
         display: block;
     }
 
@@ -88,45 +76,45 @@
     }
 
     &__payment {
-        @include font(500, 16px, 19px);
+        @include font(500, clamp(0.625rem, 0.538rem + 0.385vw, 1rem));
+        @include adaptive-value('margin-bottom', 15, 6, 0, 1400);
         letter-spacing: 0.01em;
-        margin-bottom: 15px;
     }
 
     &__payment-leasing {
+        @include font(600, clamp(0.875rem, 0.76rem + 0.513vw, 1.375rem));
         display: block;
-        @include font(600, 22px, 27px);
         letter-spacing: 0.01em;
-        margin-top: 5px;
+        margin-top: 4px;
     }
 
     &__payment-rent {
+        @include font(600, clamp(0.875rem, 0.76rem + 0.513vw, 1.375rem));
         display: block;
-        @include font(600, 22px, 27px);
         letter-spacing: 0.01em;
         margin-top: 5px;
     }
 
     &__price {
-        @include font(500, 16px, 19px);
+        @include font(500, clamp(0.625rem, 0.538rem + 0.385vw, 1rem));
+        @include adaptive-value('margin-bottom', 15, 6, 0, 1400);
         letter-spacing: 0.01em;
-        margin-bottom: 15px;
 
         span {
-            @include font(600, 16px, 19px);
+            @include font(600, clamp(0.625rem, 0.538rem + 0.385vw, 1rem));
             letter-spacing: 0.01em;
         }
     }
 
     &__price-rent {
-        margin-bottom: 30px;
+        @include adaptive-value('margin-bottom', 30, 12, 0, 1400);
     }
 
     &__more {
-        @include font(500, 16px, 19px);
+        @include font(500, clamp(0.625rem, 0.538rem + 0.385vw, 1rem));
+        @include adaptive-value('margin-bottom', 30, 12, 0, 1400);
         display: flex;
         align-items: center;
-        margin-bottom: 30px;
 
         &::after {
             content: '';
@@ -136,7 +124,8 @@
             display: inline-block;
             width: 8px;
             height: 13px;
-            margin-left: 10px;
+            // margin-left: 10px;
+            @include adaptive-value('margin-left', 10, 1, 0, 1400);
             transform: translateX(0px);
             transition: transform 0.2s ease-in-out;
         }
@@ -148,13 +137,35 @@
 
     &__book {
         width: 100%;
-        // padding: 13px 0;
     }
 
     &__plate-number {
-        @include font(600, 18px, 22px);
+        @include font(600, clamp(0.75rem, 0.663rem + 0.385vw, 1.125rem));
+        @include adaptive-value('margin-top', -10, -5, 0, 1400);
+        @include adaptive-value('margin-bottom', 20, 12, 0, 1400);
         letter-spacing: 0.01em;
         text-transform: uppercase;
-        margin: -10px 0 20px;
+    }
+}
+
+@include media-query($lg) {
+    .card {
+        &__more {
+            display: none;
+        }
+        &__plate-number {
+            display: none;
+        }
+    }
+}
+
+@include media-query($md) {
+    .card {
+        &__book {
+            display: none;
+        }
+        &__price {
+            margin-bottom: 0;
+        }
     }
 }

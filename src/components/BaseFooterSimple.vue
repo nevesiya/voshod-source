@@ -26,7 +26,7 @@ export default {
     @include flex-between();
     & * {
         color: $gray;
-        @include font(400, 13px, 16px);
+        @include font(400, clamp(0.625rem, 0.582rem + 0.192vw, 0.813rem), 16px);
     }
     &__offer {
         text-decoration: underline;

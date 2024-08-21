@@ -1,5 +1,5 @@
 /* import */
-@import "@/assets/styles/fonts.scss";
+@import '@/assets/styles/fonts.scss';
 
 /* tag */
 * {
@@ -55,7 +55,7 @@ a:hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 99;
+    z-index: 999;
 }
 
 .modal-bg--theme-blur {
@@ -121,17 +121,17 @@ a:hover {
 }
 
 .button--size-m {
-    @include font(600, 16px, 140%);
+    @include font(600, clamp(0.75rem, 0.692rem + 0.256vw, 1rem));
     padding: 9px 23px;
 }
 
 .button--size-s {
-    @include font(600, 14px, 140%);
+    @include font(600, clamp(0.75rem, 0.721rem + 0.128vw, 0.875rem));
     padding: 8px 23px;
 }
 
 .button--size-xs {
-    @include font(500, 14px, 140%);
+    @include font(500, clamp(0.75rem, 0.721rem + 0.128vw, 0.875rem));
     padding: 4px 9px;
 }
 
@@ -141,13 +141,13 @@ a:hover {
     gap: 10px;
 
     &::after {
-        content: url("@/assets/images/arrow-right-black.svg");
+        content: url('@/assets/images/arrow-right-black.svg');
         width: 18px;
         height: 18px;
     }
 
     &:hover::after {
-        content: url("@/assets/images/arrow-right-white.svg");
+        content: url('@/assets/images/arrow-right-white.svg');
         animation: arrow-right;
         animation-duration: 1.2s;
         animation-iteration-count: infinite;
@@ -159,9 +159,8 @@ a:hover {
     color: $red-dark !important;
 }
 
-/* animation */
 .title-filter {
-    @include font(600, 20px);
+    @include font(600, clamp(1.125rem, 1.067rem + 0.256vw, 1.375rem));
     letter-spacing: 0.2px;
 }
 
@@ -170,6 +169,7 @@ a:hover {
     letter-spacing: 0.14px;
 }
 
+/* animation */
 .slide-fade-enter-active,
 .slide-fade-leave-active {
     transition: all 0.5s ease;
@@ -282,13 +282,8 @@ a:hover {
 
 @include media-query($xs) {
     .button--size-m,
-    .button--size-s {
-        font-size: 12px;
-        padding: 10px 23px;
-    }
-
+    .button--size-s,
     .button--size-xs {
-        font-size: 12px;
         padding: 10px 23px;
     }
 }

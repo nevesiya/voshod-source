@@ -143,6 +143,7 @@ import {
     maxLength,
     helpers,
 } from '@vuelidate/validators';
+import ghelpers from '@/helpers/global';
 import TheLoaderLocal from '@/components/UI/Loader/TheLoaderLocal.vue';
 // import axios from 'axios';
 
@@ -205,7 +206,7 @@ export default {
                 placeholderChar: '0',
             },
             loading: false,
-            idCheckbox: '',
+            idCheckbox: ghelpers.getRandomString(),
         };
     },
     watch: {
@@ -216,15 +217,6 @@ export default {
         },
     },
     methods: {
-        getIdCheckbox() {
-            const attrs = this.$refs.form.attributes;
-
-            for (let i = 0; i < attrs.length; i++) {
-                if (attrs[i].name.startsWith('data-v')) {
-                    this.idCheckbox += ' ' + attrs[i].name;
-                }
-            }
-        },
         // onAccept(e) {
         //     const maskRef = e.detail;
         //     this.tel = maskRef.value;
@@ -340,9 +332,6 @@ export default {
             },
         };
     },
-    mounted() {
-        this.getIdCheckbox();
-    },
 };
 </script>
 
@@ -377,7 +366,7 @@ export default {
         display: inline-block;
         position: absolute;
         left: 0px;
-        top: 45px;
+        top: 40px;
     }
 
     &__text {
@@ -451,7 +440,7 @@ export default {
     &__checkbox-label,
     &__checkbox-link {
         font-family: Lato;
-        @include font(500, 14px, 17px);
+        @include font(500, clamp(0.625rem, 0.567rem + 0.256vw, 0.875rem), 17px);
         letter-spacing: 0.01em;
         color: $black;
     }
@@ -471,7 +460,7 @@ textarea {
     transition: all 0.2s ease-in-out;
 
     &::placeholder {
-        @include font(400, 16px, 140%);
+        @include font(400, clamp(0.75rem, 0.692rem + 0.256vw, 1rem), 140%);
         color: $gray;
     }
 
@@ -490,7 +479,7 @@ input {
     width: 100%;
     height: 100%;
     &[type] {
-        @include font(400, 16px, 140%);
+        @include font(400, clamp(0.75rem, 0.692rem + 0.256vw, 1rem), 140%);
         color: $black;
     }
 }
@@ -502,8 +491,16 @@ textarea {
     overflow: hidden;
 
     &[name] {
-        @include font(400, 16px, 140%);
+        @include font(400, clamp(0.75rem, 0.692rem + 0.256vw, 1rem), 140%);
         color: $black;
+    }
+}
+
+@include media-query($xl) {
+    .form {
+        &__error-text {
+            top: 35px;
+        }
     }
 }
 </style>

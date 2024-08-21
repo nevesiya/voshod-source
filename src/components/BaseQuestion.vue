@@ -1,11 +1,20 @@
 <template>
-    <base-accordion v-for="item in splitQestions(startSlice, endSlice)" :key="item.question">
+    <base-accordion
+        v-for="item in splitQestions(startSlice, endSlice)"
+        :key="item.question"
+    >
         <template #header>{{ item.question }}</template>
         <template #body>
-            <template v-if="!Array.isArray(item.answer)">{{ item.answer }}</template>
+            <template v-if="!Array.isArray(item.answer)">
+                {{ item.answer }}
+            </template>
             <template v-else>
                 <ul class="list-answer">
-                    <li v-for="item in item.answer" :key="item" class="item-answer">
+                    <li
+                        v-for="item in item.answer"
+                        :key="item"
+                        class="item-answer"
+                    >
                         {{ item }}
                     </li>
                 </ul>
@@ -15,43 +24,43 @@
 </template>
 
 <script>
-import BaseAccordion from "@/components/UI/Accordion/BaseAccordion.vue"
+import BaseAccordion from '@/components/UI/Accordion/BaseAccordion.vue';
 
 export default {
-    name: "BaseQuestion",
+    name: 'BaseQuestion',
     components: { BaseAccordion },
     props: {
         questions: {
-            type: Array
+            type: Array,
         },
         startSlice: {
-            type: Number
+            type: Number,
         },
         endSlice: {
-            type: Number
-        }
+            type: Number,
+        },
     },
     data() {
-        return {}
+        return {};
     },
     methods: {
         splitQestions(start, end) {
-            return this.questions.slice(start, end)
-        }
-    }
-}
+            return this.questions.slice(start, end);
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>
 :deep(.accordion-body) {
     display: block;
-    @include font(500, 16px, 140%);
+    @include font(500, clamp(0.75rem, 0.692rem + 0.256vw, 1rem), 140%);
     letter-spacing: 0.16px;
 }
 
 :deep(.accordion-header) {
     @include flex-between;
-    @include font(500, 20px, 140%);
+    @include font(500, clamp(0.875rem, 0.788rem + 0.385vw, 1.25rem), 140%);
     width: 100%;
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -59,7 +68,7 @@ export default {
     text-align: start;
     border-bottom: 2px solid #f2f3f6;
     &::after {
-        content: "";
+        content: '';
         background: url(@/assets/images/arrow-right-small-white.svg), $black;
         filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.15));
         background-repeat: no-repeat;
@@ -67,9 +76,9 @@ export default {
         background-position: center center;
         border-radius: 50%;
         display: block;
-        min-width: 24px;
-        min-height: 24px;
-        margin-left: 20px;
+        @include adaptive-value('min-width', 24, 18, 0, 1400);
+        @include adaptive-value('min-height', 24, 18, 0, 1400);
+        @include adaptive-value('margin-left', 20, 14, 0, 1400);
         margin-top: 3px;
         transition: all ease-in-out 0.25s;
     }
@@ -77,7 +86,7 @@ export default {
 
 :deep(.accordion-header--open) {
     &::after {
-        content: "";
+        content: '';
         background: url(@/assets/images/arrow-right-small-white.svg), $red-dark;
         background-repeat: no-repeat;
         transform: rotate(-90deg);
@@ -109,11 +118,9 @@ export default {
 @include media-query($xs) {
     ::v-deep {
         .accordion-header {
-            font-size: 14px;
             padding-bottom: 8px;
         }
         .accordion-body {
-            font-size: 12px;
             color: $gray-dark;
         }
     }

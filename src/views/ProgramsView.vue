@@ -334,19 +334,19 @@
 </template>
 
 <script>
-import AdvantageLeasing from '@/components/AdvantageLeasing.vue'
-import ModalCallback from '@/components/UI/Modal/ModalCallback.vue'
-import BaseFooter from '@/components/BaseFooter.vue'
-import BaseQuestion from '@/components/BaseQuestion.vue'
+import AdvantageLeasing from '@/components/AdvantageLeasing.vue';
+import ModalCallback from '@/components/UI/Modal/ModalCallback.vue';
+import BaseFooter from '@/components/BaseFooter.vue';
+import BaseQuestion from '@/components/BaseQuestion.vue';
 
-import { fetchData } from '@/utils/apiUtils'
+import { fetchData } from '@/utils/apiUtils';
 
 export default {
     components: {
         AdvantageLeasing,
         BaseFooter,
         BaseQuestion,
-        ModalCallback
+        ModalCallback,
     },
     data() {
         return {
@@ -355,28 +355,28 @@ export default {
                 'Гражданство РФ',
                 'Возраст не менее 21 лет',
                 'Водительский стаж от 3-х лет',
-                'Постоянная или временная регистрация сроком не менее 6 месяцев на территории РФ'
+                'Постоянная или временная регистрация сроком не менее 6 месяцев на территории РФ',
             ],
             arrangeDocuments: [
                 'Паспорт РФ',
-                'Водительское удостоверение (или другой документ, удостоверяющий личность)'
+                'Водительское удостоверение (или другой документ, удостоверяющий личность)',
             ],
-            questionsLeasing: ''
-        }
+            questionsLeasing: '',
+        };
     },
     methods: {
         async getFaqLaasing() {
             const path = import.meta.env.DEV
                 ? `public/data/leasing_faq.json`
-                : `data/leasing_faq.json`
+                : `data/leasing_faq.json`;
 
             this.questionsLeasing = await fetchData(
-                `${import.meta.env.BASE_URL}${path}`
-            )
-        }
+                `${import.meta.env.BASE_URL}${path}`,
+            );
+        },
     },
-    mounted() {}
-}
+    mounted() {},
+};
 </script>
 
 <style scoped lang="scss">
@@ -520,6 +520,9 @@ export default {
     &__version {
         & dt {
             max-width: 237px;
+            overflow: hidden;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         & dt::after {
             content: ' .....................................................................................';

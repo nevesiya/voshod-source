@@ -19,6 +19,12 @@
                 >
                     {{ button }}
                 </button>
+                <img
+                    @click="clickButton"
+                    src="@/assets/images/arrow-right-white.svg"
+                    alt="arrow"
+                    class="banner__box-button"
+                />
             </div>
         </div>
     </div>
@@ -56,17 +62,25 @@ export default {
 
 <style lang="scss" scoped>
 .banner {
-    width: 1045px;
-    height: 126px;
-    margin-bottom: 60px;
+    max-width: 1045px;
+
     position: relative;
     &__wrapper {
         @include flex-between();
-        padding: 25px 40px;
+        @include adaptive-value('padding-top', 25, 12, 0, 1400);
+        @include adaptive-value('padding-bottom', 25, 12, 0, 1400);
+        @include adaptive-value('padding-left', 40, 12, 0, 1400);
+        @include adaptive-value('padding-right', 40, 12, 0, 1400);
+    }
+
+    &__box-button {
+        display: none;
     }
 
     &__bg {
         position: absolute;
+        height: 100%;
+        width: 100%;
         z-index: -1;
         border-radius: 4px;
         background: linear-gradient(
@@ -77,21 +91,36 @@ export default {
             ),
             linear-gradient(117deg, #000 0%, #222 83.89%);
         filter: brightness(50%);
+        object-fit: cover;
     }
     &__box {
         align-self: flex-end;
     }
     &__title {
         color: $white;
-        @include font(500, 20px);
+        @include font(500, clamp(0.75rem, 0.635rem + 0.513vw, 1.25rem));
         letter-spacing: 0.2px;
         margin-bottom: 13px;
     }
     &__text {
         color: $white;
-        @include font(600, 32px);
+        @include font(600, clamp(0.875rem, 0.615rem + 1.154vw, 2rem));
         letter-spacing: 0.32px;
         text-transform: uppercase;
+    }
+}
+
+@include media-query($sm) {
+    .banner {
+        &__box {
+            .button {
+                display: none;
+            }
+        }
+        &__box-button {
+            display: block;
+            @include adaptive-value('width', 25, 20, 0, 576);
+        }
     }
 }
 </style>

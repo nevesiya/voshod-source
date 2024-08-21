@@ -1,6 +1,19 @@
 <template>
     <div class="modal-bg modal-bg--theme-blur">
         <div class="modal">
+            <div class="modal__header">
+                <img
+                    @click="this.$emit('closeModal')"
+                    class="modal__btn-back"
+                    src="@/assets/images/arrow-right-white.svg"
+                    alt="arrow back"
+                />
+                <img
+                    class="modal__logo"
+                    src="@/assets/images/logo-black.svg"
+                    alt="arrow back"
+                />
+            </div>
             <div class="gallery">
                 <button
                     @click="this.$emit('closeModal')"
@@ -13,14 +26,10 @@
                     alt="photo car"
                     class="gallery__img"
                 />
-                <div class="gallery__magnifying">
-                    <img
-                        @click="showModalSlider = true"
-                        class="gallery__btn-magnifying"
-                        src="@/assets/images/magnifying-glass-plus.svg"
-                    />
-                    <span class="gallery__overlay-magnifying"></span>
-                </div>
+                <div
+                    @click="showModalSlider = true"
+                    class="gallery__magnifying"
+                ></div>
                 <BaseSlider
                     class="gallery__base-slider"
                     :images-number="productImages.length"
@@ -41,6 +50,12 @@
                 </transition>
             </div>
             <div class="modal-info">
+                <BaseSlider
+                    class="modal-info__base-slider"
+                    :images-number="productImages.length"
+                    :primary-index-image="indexActiveImage + 1"
+                    @current-index-image="indexActiveImage = $event"
+                />
                 <p class="modal-info__name">
                     <span class="modal-info__brand">{{ product.brand }}</span>
                     <span class="modal-info__model">{{ modelName }}</span>
@@ -150,11 +165,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-info {
-}
 .details {
     &__title {
-        @include font(500, 24px);
+        @include font(500, clamp(1.125rem, 1.038rem + 0.385vw, 1.5rem));
         text-transform: uppercase;
         margin-bottom: 25px;
     }
@@ -166,7 +179,7 @@ export default {
     }
     &__item {
         & * {
-            @include font(500, 16px);
+            @include font(500, clamp(0.875rem, 0.846rem + 0.128vw, 1rem));
             padding-bottom: 15px;
         }
     }
@@ -177,6 +190,9 @@ export default {
 }
 .modal {
     display: flex;
+    &__header {
+        display: none;
+    }
 }
 
 .gallery {
@@ -188,7 +204,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     &__btn-back {
-        @include font(600, 18px);
+        @include font(600, clamp(1rem, 0.971rem + 0.128vw, 1.125rem));
         color: $white;
         align-self: flex-start;
 
@@ -219,30 +235,11 @@ export default {
     &__magnifying {
         position: relative;
         align-self: center;
-    }
-    &__btn-magnifying {
-        padding: 100px;
-        opacity: 0;
+        display: flex;
+        justify-content: center;
+        width: 70%;
+        height: 70%;
         cursor: pointer;
-        transform: scale(2);
-        transition: opacity 0.2s ease-in-out;
-        &:hover,
-        &:hover + .gallery__overlay-magnifying {
-            opacity: 1;
-        }
-    }
-    &__overlay-magnifying {
-        background-color: $black;
-        display: inline-block;
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        left: 44%;
-        top: 44%;
-        opacity: 0;
-        border-radius: 50%;
-        z-index: -1;
-        transition: opacity 0.2s ease-in-out;
     }
     &__modal-slider {
     }
@@ -252,11 +249,14 @@ export default {
 .modal-info {
     background: $white;
     padding: 35px 60px;
-    width: 520px;
+    width: 510px;
     height: 656px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    &__base-slider {
+        display: none;
+    }
     &__book {
         margin-bottom: 40px;
     }
@@ -266,12 +266,11 @@ export default {
     &__details {
     }
     &__label {
-        padding: 5px 15px;
+        padding: 6px 15px;
         height: 29px;
         border-radius: 2px;
         background: $gray-light;
-        &--service {
-        }
+        @include font(400, clamp(0.75rem, 0.692rem + 0.256vw, 1rem));
     }
     &__label-box {
         display: flex;
@@ -290,31 +289,178 @@ export default {
     &__name {
         margin-bottom: 10px;
         & * {
-            @include font(600, 40px);
+            @include font(600, clamp(2rem, 1.885rem + 0.513vw, 2.5rem));
             text-transform: uppercase;
         }
     }
     &__payment {
         margin-bottom: 15px;
         & * {
-            @include font(600, 24px);
+            @include font(600, clamp(1rem, 0.885rem + 0.513vw, 1.5rem));
         }
     }
     &__payment-rent {
-        @include font(600, 32px);
+        @include font(600, clamp(1.5rem, 1.385rem + 0.513vw, 2rem));
     }
     &__plate-number {
-        @include font(500, 24px);
+        @include font(500, clamp(1rem, 0.885rem + 0.513vw, 1.5rem));
         text-transform: uppercase;
         color: $gray-dark;
         margin-bottom: 20px;
     }
     &__price {
-        @include font(500, 16px);
+        @include font(500, clamp(0.875rem, 0.846rem + 0.128vw, 1rem));
         margin-bottom: 40px;
     }
     &__price-rent {
-        @include font(600, 16px);
+        @include font(600, clamp(0.875rem, 0.846rem + 0.128vw, 1rem));
+    }
+}
+.card {
+    &__label--free {
+        background: rgba(64, 129, 4, 0.2);
+    }
+
+    &__label--busy {
+        color: $gray-dark;
+    }
+}
+
+@include media-query($xl, 656px) {
+    .modal {
+        flex-direction: column;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .gallery {
+        min-height: 40%;
+        &__img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .modal-info {
+        height: auto;
+        width: 100%;
+        padding: 35px;
+        justify-content: space-between;
+    }
+}
+
+@include media-query($md) {
+    .modal {
+        width: 100vw;
+    }
+
+    .gallery {
+        width: 100%;
+    }
+}
+
+@include media-query($xs, 600px) {
+    .modal {
+        &__header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: $white;
+        }
+        &__btn-back {
+            width: 20px;
+            height: 20px;
+            transform: rotate(180deg);
+            filter: brightness(10%);
+        }
+        &__logo {
+            height: 24px;
+            padding-right: 20px;
+            margin: 0 auto;
+        }
+    }
+    .gallery {
+        justify-content: center;
+        &__base-slider {
+            display: none;
+        }
+        &__btn-back {
+            display: none;
+        }
+        &__magnifying {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .modal-info {
+        padding: 16px;
+        &__base-slider {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        &__book {
+            position: sticky;
+            bottom: 20px;
+            z-index: 99;
+            background: $white;
+            order: 1;
+            width: 100%;
+            margin-bottom: 0;
+        }
+        &__details {
+            margin-bottom: 29px;
+        }
+        &__label-box {
+            margin-bottom: 20px;
+        }
+        &__name {
+            margin-bottom: 8px;
+        }
+        &__plate-number {
+            margin-bottom: 15px;
+        }
+        &__payment {
+            margin-bottom: 12px;
+        }
+        &__price {
+            margin-bottom: 32px;
+        }
+    }
+
+    .details {
+        &__title {
+            margin-bottom: 16px;
+        }
+    }
+
+    .details-list {
+        &__term {
+            padding-bottom: 12px;
+        }
+    }
+
+    ::v-deep {
+        .slider-prev,
+        .slider-next,
+        .slider-dots__item--active {
+            filter: brightness(10%);
+        }
+
+        .slider-prev {
+            transform: scale(0.5) rotate(180deg);
+        }
+
+        .slider-next {
+            transform: scale(0.5);
+        }
+
+        .slider-dots {
+            &__item {
+                width: 24px;
+                height: 2px;
+            }
+        }
     }
 }
 </style>

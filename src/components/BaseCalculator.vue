@@ -119,16 +119,16 @@ export default {
     display: flex;
     flex-direction: column;
     &__calculation-day {
-        @include font(500, 31px);
+        @include font(500, clamp(1.25rem, 1.091rem + 0.705vw, 1.938rem));
         & span {
-            @include font(500, 16px);
+            @include font(500, clamp(0.625rem, 0.538rem + 0.385vw, 1rem));
             margin-left: 6px;
         }
     }
     &__calculation-month {
-        @include font(500, 31px);
+        @include font(500, clamp(1.25rem, 1.091rem + 0.705vw, 1.938rem));
         & span {
-            @include font(500, 16px);
+            @include font(500, clamp(0.625rem, 0.538rem + 0.385vw, 1rem));
             margin-left: 6px;
         }
     }
@@ -148,10 +148,10 @@ export default {
         align-items: center;
     }
     &__table-option {
-        @include font(500, 16px);
+        @include font(500, clamp(0.625rem, 0.538rem + 0.385vw, 1rem));
     }
     &__table-value {
-        @include font(500, 20px);
+        @include font(500, clamp(1rem, 0.942rem + 0.256vw, 1.25rem));
     }
     &__term-payment {
     }

@@ -1,12 +1,12 @@
-@import '@/assets/styles/theme.scss';
+$product-column-gap: calc(6px + 14 * (100vw - 360px) / 1560);
 
 .product {
-    // display: grid;
-    // grid-template-columns: repeat(3, 1fr);
     display: flex;
-    gap: 20px;
     flex-wrap: wrap;
     margin-bottom: 20px;
+    @include adaptive-value('column-gap', 20, 6, 0, 1400);
+    @include adaptive-value('row-gap', 20, 8, 0, 1400);
+    @include adaptive-value('margin-bottom', 30, 15, 0, 1400);
 }
 
 .product-null {
@@ -19,13 +19,20 @@
 
 .filter-group {
     @include flex-between();
-    margin-bottom: 30px;
+    @include adaptive-value('margin-bottom', 30, 24, 0, 1400);
+    align-items: center;
+
+    &__btn-filter {
+        display: none;
+    }
 }
 
 .main {
-    padding: 40px 0 60px;
+    padding: 40px 0 20px;
     display: flex;
     flex-direction: column;
+    @include adaptive-value('padding-top', 40, 16, 0, 1400);
+    @include adaptive-value('padding-bottom', 20, 16, 0, 1400);
 }
 
 .main-catalog {
@@ -43,13 +50,22 @@
     display: flex;
     flex-direction: column;
     row-gap: 30px;
+
+    &__header {
+        display: none;
+    }
+
+    &__service {
+        display: none;
+    }
+
+    &__promo {
+        display: none;
+    }
 }
 
 ::v-deep {
     .footer-simple {
-        // position: absolute;
-        // bottom: 0;
-        // width: 100%;
         &__copyright {
             flex-grow: 1;
         }
@@ -60,6 +76,14 @@
         &__privacy-police {
             text-decoration: underline;
         }
+    }
+
+    .card {
+        width: calc((100% - #{$product-column-gap} * 2) / 3);
+    }
+
+    .banner {
+        @include adaptive-value('margin-bottom', 60, 20, 0, 1400);
     }
 }
 
@@ -73,7 +97,8 @@
         justify-content: flex-start;
         border-bottom: none;
         padding-bottom: 0;
-        margin-bottom: 20px;
+        align-items: center;
+        @include adaptive-value('margin-bottom', 20, 16, 0, 1400);
         &::after {
             content: '';
             background: url(@/assets/images/arrow-right-small-gray.svg);
@@ -83,8 +108,8 @@
             background-position: center center;
             border-radius: 50%;
             display: block;
-            min-width: 24px;
-            min-height: 24px;
+            min-width: 22px;
+            min-height: 22px;
             margin-left: 8px;
             transition: all ease-in-out 0.25s;
         }
@@ -142,5 +167,108 @@
         color: $black;
         background: none;
         cursor: default;
+    }
+}
+
+@include media-query($xl) {
+    .main-sidebar {
+        position: fixed;
+        min-width: auto;
+        width: 360px;
+        height: 100%;
+        right: 0;
+        top: 0;
+        padding: 16px;
+        z-index: 999;
+        overflow: scroll;
+        background: white;
+        transform: translateX(100%);
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease;
+        &--open {
+            transform: translateX(0);
+        }
+        &__header {
+            display: block;
+        }
+        &__header-close {
+            @include adaptive-value('width', 40, 20, 0, 1200);
+            transform: rotate(180deg);
+        }
+
+        &__service {
+            display: flex;
+        }
+
+        &__promo {
+            display: flex;
+        }
+    }
+    .filter-group {
+        &__promo {
+            display: none;
+        }
+        &__service {
+            display: none;
+        }
+        &__btn-filter {
+            display: block;
+            @include adaptive-value('width', 40, 20, 0, 1200);
+        }
+    }
+
+    .button--reset {
+        top: 0px;
+    }
+
+    ::v-deep {
+        .card {
+            width: calc((100% - #{$product-column-gap} * 3) / 4);
+        }
+
+        .banner {
+            max-width: 100%;
+        }
+    }
+}
+
+@include media-query($lg) {
+    ::v-deep {
+        .card {
+            width: calc((100% - #{$product-column-gap} * 2) / 3);
+        }
+    }
+}
+
+@include media-query($sm) {
+    .main-sidebar {
+        width: 100%;
+    }
+
+    ::v-deep {
+        .footer-simple {
+            &__offer {
+                display: none;
+            }
+            &__privacy-police {
+                display: none;
+            }
+        }
+    }
+}
+
+@include media-query($xs) {
+    ::v-deep {
+        .button--size-xs {
+            padding: 4px 9px;
+        }
+    }
+}
+
+@include media-query(592px) {
+    ::v-deep {
+        .card {
+            width: calc((100% - #{$product-column-gap} * 1) / 2);
+        }
     }
 }

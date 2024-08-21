@@ -181,12 +181,13 @@ export default {
 
 <style lang="scss" scoped>
 .button-page {
-    width: 40px;
-    height: 40px;
     border: 2px solid $black;
     border-radius: 2px;
     align-self: center;
     transition: all 0.2s ease-in-out;
+    @include font(600, clamp(0.875rem, 0.817rem + 0.256vw, 1.125rem));
+    @include adaptive-value('height', 40, 33, 0, 1400);
+    @include adaptive-value('width', 40, 33, 0, 1400);
     &:hover {
         border: 2px solid $red-dark;
         color: $red-dark;
@@ -243,9 +244,9 @@ export default {
 }
 
 .page-wrapper {
+    @include adaptive-value('gap', 20, 15, 0, 1400);
     display: flex;
     align-items: center;
-    gap: 20px;
     flex-wrap: wrap;
 }
 </style>
