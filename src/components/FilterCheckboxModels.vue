@@ -64,6 +64,7 @@ export default {
             items: [],
             obj: {},
             filterData: useFilterDataStore(),
+            id: 'model',
         };
     },
     watch: {
@@ -95,6 +96,20 @@ export default {
                 this.items = [];
             }
 
+            const query = { ...this.$route.query };
+
+            if (!this.items.length) {
+                delete query[this.id];
+            } else {
+                query[this.id] = this.items.join(',');
+            }
+
+            this.$router.replace({
+                query: {
+                    ...query,
+                },
+            });
+
             this.$emit('selectedItems', this.items);
         },
 
@@ -104,6 +119,14 @@ export default {
             this.obj = {};
             this.filterData.similarModel = '';
             this.$emit('selectedItems', this.items);
+
+            const query = { ...this.$route.query };
+            delete query[this.id];
+            this.$router.replace({
+                query: {
+                    ...query,
+                },
+            });
         },
 
         checkPresenceSelectedItems(models) {
@@ -143,6 +166,24 @@ export default {
         if (this.filterData.similarModel) {
             this.items.push(this.filterData.similarModel);
         }
+
+        const unwatch = this.$watch('options', () => {
+            const query = { ...this.$route.query };
+
+            if (!query[this.id]) {
+                return;
+            }
+
+            const param = query[this.id].split(',');
+            const models = this.options.flatMap((item) => item.models);
+
+            this.items = param?.filter((item) => {
+                return models?.includes(item);
+            });
+
+            this.$emit('selectedItems', this.items);
+            unwatch();
+        });
     },
 };
 </script>

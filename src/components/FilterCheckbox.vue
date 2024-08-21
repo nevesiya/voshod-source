@@ -10,6 +10,7 @@
                     :selected-items="items"
                 />
                 <FilterCheckboxItems
+                    :id="id"
                     :names="options"
                     :display-limit="displayLimit"
                     :selected-all="all"
@@ -50,6 +51,9 @@ export default {
         open: {
             type: Boolean,
             default: false,
+        },
+        id: {
+            type: String,
         },
     },
     emits: ['selectedItems'],

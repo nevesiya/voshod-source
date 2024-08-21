@@ -7,7 +7,7 @@
                 </p>
             </template>
             <template #body>
-                <template v-if="valueType === 'amount'">
+                <template v-if="valueType === 'price'">
                     <form class="input-value">
                         <input
                             class="input-value__min"
@@ -57,6 +57,7 @@
                 </template>
                 <div class="filter-range__slider">
                     <Slider
+                        :start="[20, 80]"
                         :step="currentStep"
                         v-bind:value="slider.value"
                         v-bind="slider"
@@ -130,6 +131,8 @@ export default {
             },
             inputMin: '',
             inputMax: '',
+            idMin: this.valueType + ' min',
+            idMax: this.valueType + ' max',
         };
     },
     watch: {
@@ -151,7 +154,7 @@ export default {
         currentStep() {
             let tmp;
 
-            if (this.valueType === 'amount') {
+            if (this.valueType === 'price') {
                 tmp = 1000;
             } else if (this.valueType === 'year') {
                 tmp = 1;
@@ -161,7 +164,7 @@ export default {
         },
     },
     methods: {
-        addValueInput(e) {
+        addValueInput(e, validation = false) {
             this.slider.value[0] = e[0];
             this.slider.value[1] = e[1];
 
@@ -175,6 +178,11 @@ export default {
                 this.inputMax = e[1];
             } else {
                 this.inputMax = '';
+            }
+
+            if (validation) {
+                this.addValueMinRange();
+                this.addValueMaxRange();
             }
         },
 
@@ -193,7 +201,8 @@ export default {
                 this.inputMin = '';
             }
 
-            this.$emit('selectedMin', this.inputMin);
+            // this.$emit('selectedMin', this.inputMin);
+            this.tranferValue();
         },
 
         addValueMaxRange() {
@@ -211,7 +220,8 @@ export default {
                 this.inputMax = '';
             }
 
-            this.$emit('selectedMax', this.inputMax);
+            // this.$emit('selectedMax', this.inputMax);
+            this.tranferValue();
         },
 
         checkEndInputMin: helpers.debounce(function () {
@@ -223,9 +233,68 @@ export default {
         }, 2000),
 
         tranferValue() {
+            if (!this.valueType) {
+                return;
+            }
+
+            const query = { ...this.$route.query };
+
+            if (this.inputMin) {
+                query[this.idMin] = this.inputMin;
+            }
+
+            if (this.inputMax) {
+                query[this.idMax] = this.inputMax;
+            }
+
+            this.$router.replace({
+                query: {
+                    ...query,
+                },
+            });
+
             this.$emit('selectedMin', this.inputMin);
             this.$emit('selectedMax', this.inputMax);
         },
+    },
+
+    async mounted() {
+        const watchValueMin = this.$watch('valueMin', () => {
+            setData();
+            watchValueMin();
+        });
+
+        const watchValueMax = this.$watch('valueMax', () => {
+            setData();
+            watchValueMax();
+        });
+
+        const setData = () => {
+            const query = { ...this.$route.query };
+
+            if (!(query[this.idMin] || query[this.idMax])) {
+                return;
+            }
+
+            let param = [];
+
+            if (!isNaN(query[this.idMin])) {
+                param.push(+query[this.idMin]);
+            } else {
+                param.push(this.valueMin);
+            }
+
+            if (!isNaN(query[this.idMax])) {
+                param.push(+query[this.idMax]);
+            } else {
+                param.push(this.valueMax);
+            }
+
+            this.addValueInput(param, true);
+
+            this.$emit('selectedMin', this.inputMin);
+            this.$emit('selectedMax', this.inputMax);
+        };
     },
 };
 </script>
@@ -235,9 +304,8 @@ export default {
     &__label {
     }
     &__slider {
-        max-width: 290px;
+        max-width: calc(100% - 16px);
         margin: 0 auto 30px;
-        margin-bottom: 30px;
     }
 }
 .input-value {
@@ -245,6 +313,7 @@ export default {
     margin-bottom: 20px;
     & input {
         width: 120px;
+        font-size: clamp(0.875rem, 0.846rem + 0.128vw, 1rem);
     }
     &__max {
     }
@@ -274,9 +343,6 @@ export default {
             transition: all ease-in-out 0.25s;
         }
     }
-}
-
-::v-deep {
     .accordion-header--open {
         &::after {
             content: '';
@@ -286,76 +352,8 @@ export default {
             background-position: center center;
         }
     }
-}
-::v-deep {
     .accordion-item {
         width: 100%;
-    }
-}
-
-// ::v-deep {
-//     .slider-conect {
-//         background-color: $red-dark;
-//     }
-// }
-
-// ::v-deep {
-//     .slider-origin {
-//         top: 1px;
-//     }
-// }
-
-// ::v-deep {
-//     .slider-target {
-//         height: 2px;
-//         margin: 0 auto 5px;
-//     }
-// }
-
-// ::v-deep {
-//     .slider-handle {
-//         width: 12px;
-//         height: 12px;
-//         background-color: $red-dark;
-//         box-shadow: none;
-//         transition: all 0.2s ease-in-out;
-//         &:focus {
-//             filter: brightness(80%);
-//             box-shadow: none;
-//         }
-//     }
-// }
-
-::v-deep {
-    .slider-connect {
-        background-color: $red-dark;
-    }
-}
-
-::v-deep {
-    .slider-origin {
-        top: 1px;
-    }
-}
-
-::v-deep {
-    .slider-target {
-        height: 2px;
-        margin: 0 auto 5px;
-    }
-}
-
-::v-deep {
-    .slider-handle {
-        width: 12px;
-        height: 12px;
-        background-color: $red-dark;
-        box-shadow: none;
-        transition: all 0.2s ease-in-out;
-        &:focus {
-            filter: brightness(80%);
-            box-shadow: none;
-        }
     }
 }
 

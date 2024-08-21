@@ -12,7 +12,7 @@
                 :id="name"
                 :value="name"
                 v-model="selected"
-                @change="this.$emit('selectedItems', this.selected)"
+                @change="selectedItems"
             />
             <label class="filter-checkbox__label" :for="name">
                 {{ checkModel(name, optionalNames) }}
@@ -59,6 +59,10 @@ export default {
             type: Array,
             default: new Array(0),
         },
+        id: {
+            type: String,
+            default: '',
+        },
     },
     emits: ['selectedItems'],
     data() {
@@ -71,7 +75,7 @@ export default {
     watch: {
         selectedAll() {
             this.selected = [];
-            this.$emit('selectedItems', this.selected);
+            this.selectedItems();
         },
         currentItems() {
             if (this.currentItems.length != this.selected.length) {
@@ -102,6 +106,28 @@ export default {
         },
     },
     methods: {
+        selectedItems() {
+            this.$emit('selectedItems', this.selected);
+
+            if (!this.id) {
+                return;
+            }
+
+            const query = { ...this.$route.query };
+
+            if (!this.selected.length) {
+                delete query[this.id];
+            } else {
+                query[this.id] = this.selected.join(',');
+            }
+
+            this.$router.replace({
+                query: {
+                    ...query,
+                },
+            });
+        },
+
         splitNames(start, end) {
             if (this.selectedMoreDisplayQuantity) {
                 return this.names;
@@ -127,8 +153,26 @@ export default {
             if (this.selectedOutside) {
                 this.selected.push(this.selectedOutside);
             }
-            this.$emit('selectedItems', this.selected);
+            this.selectedItems();
         },
+    },
+    mounted() {
+        const unwatch = this.$watch('names', () => {
+            const query = { ...this.$route.query };
+
+            if (!query[this.id]) {
+                return;
+            }
+
+            const param = query[this.id].split(',');
+
+            this.selected = param?.filter((item) => {
+                return [...this.names].includes(item);
+            });
+
+            this.$emit('selectedItems', this.selected);
+            unwatch();
+        });
     },
 };
 </script>

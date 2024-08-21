@@ -3,20 +3,24 @@
         <input
             type="checkbox"
             class="input"
-            :id="name"
+            :id="name + uniqueId"
             :name="name"
             :value="name"
             :disabled="selectedAll"
             v-model="selectedAll"
             @input="checkSelectedAll"
         />
-        <label class="button button--color-red button--size-xs" :for="name">
+        <label
+            class="button button--color-red button--size-xs"
+            :for="name + uniqueId"
+        >
             Все
         </label>
         <template v-for="option in options" :key="option">
             <input
                 type="checkbox"
-                :id="option"
+                :class="{ sdfasf: this.selected.includes(option) }"
+                :id="option + uniqueId"
                 :name="option"
                 :value="option"
                 class="input"
@@ -25,7 +29,7 @@
             />
             <label
                 class="button button--color-black button--size-xs"
-                :for="option"
+                :for="option + uniqueId"
             >
                 {{ option }}
             </label>
@@ -34,6 +38,8 @@
 </template>
 
 <script>
+import helpers from '@/helpers/global';
+
 export default {
     name: 'FilterButton',
     props: {
@@ -52,6 +58,7 @@ export default {
         return {
             selected: [],
             selectedAll: true,
+            uniqueId: helpers.getRandomString(),
         };
     },
     methods: {
@@ -71,11 +78,50 @@ export default {
     watch: {
         selected() {
             this.$emit('selectedItems', this.selected);
+
+            if (!this.name) {
+                return;
+            }
+
+            const query = { ...this.$route.query };
+
+            if (!this.selected.length) {
+                delete query[this.name];
+            } else {
+                query[this.name] = this.selected.join(',');
+            }
+
+            this.$router.replace({
+                query: {
+                    ...query,
+                },
+            });
         },
         resetSelected() {
             this.selected = [];
             this.selectedAll = true;
         },
+    },
+    async mounted() {
+        await this.$nextTick();
+
+        if (!Array.isArray(this.options)) {
+            return;
+        }
+
+        const query = { ...this.$route.query };
+
+        if (!query[this.name]) {
+            return;
+        }
+
+        const param = query[this.name].split(',');
+
+        this.selected = param?.filter((item) => {
+            return [...this.options].includes(item);
+        });
+
+        this.$emit('selectedItems', this.selected);
     },
 };
 </script>
@@ -83,18 +129,19 @@ export default {
 <style lang="scss" scoped>
 .sort {
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    @include adaptive-value('gap', 20, 8, 0, 1400);
 }
 
 .button {
     text-transform: none;
+    user-select: none;
     &--color-red {
         border: 1.5px solid $red-dark;
     }
     &--color-black {
         border: 1.5px solid $black;
     }
-    user-select: none;
 }
 
 :deep(.button--color-red) {
@@ -129,11 +176,4 @@ export default {
     background: $red-dark;
     color: $white;
 }
-
-// .input:disabled + label {
-//     filter: grayscale(80%);
-//     &:hover {
-//         opacity: 1;
-//     }
-// }
 </style>
